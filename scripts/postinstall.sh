@@ -28,9 +28,9 @@ function list_hook_files() {
 function install_hooks() {
   cd "${HOOKS_DIR}"
   for hook_script in $(list_hook_files); do
-    local hook_name=$(basename "${hook_script}" .js)
+    local hook_name=$(basename "${hook_script}" .sh)
     printf 'install "%s" hook\n' "${hook_name}"
-    ln -s "../${PROJECT_NAME}/hooks/${hook_script}" "${hook_name}"
+    cp "../${PROJECT_NAME}/hooks/${hook_script}" "${hook_name}"
   done
 }
 
