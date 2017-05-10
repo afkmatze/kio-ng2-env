@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-console.log(process.cwd())
-/*const path = require('path')
+const path = require('path')
 const { createStore } = require('../node')
 const store = createStore()
 
@@ -12,4 +11,3 @@ store.load()
     return store.save() 
   } )
   .catch ( console.error )
-*/

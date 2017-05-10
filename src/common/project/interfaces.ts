@@ -5,7 +5,14 @@ import {
 } from '../location'
 
 export interface ProjectInfo {
-  name: string 
+  name: string  
+}
+
+export interface BuildInfo {
+  buildCount: number
+  buildTime: Date
+  buildMachine: string
+  buildBranch: string 
 }
 
 export interface ProjectRootLocation {
@@ -14,7 +21,7 @@ export interface ProjectRootLocation {
 }
 
 
-export interface Project extends ProjectInfo 
+export interface Project extends ProjectInfo, BuildInfo 
 {
   root: ProjectRootLocation  
 }

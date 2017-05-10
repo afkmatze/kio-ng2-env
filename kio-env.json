@@ -1,4 +1,7 @@
 {
   "name": "kio-ng2-env",
-  "build": 3
+  "buildCount": 14,
+  "buildTime": "2017-05-10T12:45:15.347Z",
+  "buildMachine": "x64 Macintosh.fritz.box",
+  "buildBranch": "* master 9a557b5 init"
 }

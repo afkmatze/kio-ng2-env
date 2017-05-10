@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { EnvProvider, ENV_FILEPATH } from '../../common'
 
-const envData = require(ENV_FILEPATH)
+const envData = require('../../../kio-env-browser.json')
 
 const ROOT_DIR = path.resolve('./')
 
