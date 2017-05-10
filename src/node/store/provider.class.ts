@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { EnvProvider, ENV_FILEPATH } from '../../common'
 
-const ROOT_DIR = path.resolve('./')
+const ROOT_DIR = path.resolve('./').replace ( /\/node_modules\/.*/, '' )
 
 export class NodeEnvProvider<T> extends EnvProvider<T> {
 
