@@ -1,4 +1,7 @@
 import { NodeEnvProvider } from './store/provider.class';
-import { EnvStore } from '../common';
+export declare let globalStore: any;
 export declare const createProvider: <T>() => NodeEnvProvider<T>;
-export declare const createStore: <T>() => EnvStore<{}, NodeEnvProvider<T>>;
+export declare const createStore: <T>() => any;
+export declare const api: {
+    prebuild: () => Promise<boolean>;
+};

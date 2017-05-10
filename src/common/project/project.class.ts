@@ -7,4 +7,8 @@ export class ProjectEnv implements Project {
 
   constructor (readonly name:string, readonly root:ProjectRootLocation) {}
 
+  buildCount: number
+  buildTime: Date
+  buildMachine: string
+  buildBranch: string 
 }

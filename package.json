@@ -1,6 +1,6 @@
 {
   "name": "kio-ng2-env",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "kio environment",
   "main": "node/index.js",
   "browser": "browser/index.js",
