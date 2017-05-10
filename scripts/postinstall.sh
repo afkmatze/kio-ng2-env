@@ -31,5 +31,5 @@ function install_hooks() {
 echo "post install at pwd $(pwd)"
 echo "rel dir ${PROJECT_ROOT}"
 
-install_hooks
+#install_hooks
 
