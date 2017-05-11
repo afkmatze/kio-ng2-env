@@ -1,7 +1,7 @@
 {
   "name": "kio-ng2-env",
-  "buildCount": 35,
-  "buildTime": "2017-05-11T18:16:47.895Z",
-  "buildMachine": "x64 Matthiass-Mac-mini.local",
-  "buildBranch": "* master 641a6b6 Skip hooks"
+  "buildCount": 94,
+  "buildTime": "2017-05-11T21:42:05.008Z",
+  "buildMachine": "x64 Macintosh.fritz.box",
+  "buildBranch": "* master 598ebea git stuff"
 }

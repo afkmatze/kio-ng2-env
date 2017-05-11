@@ -9,6 +9,14 @@ export class ProjectEnv implements Project {
 
   buildCount: number
   buildTime: Date
-  buildMachine: string
+  buildMachine: {
+    release: string,
+    type: string,
+    username: string,
+    arch: string,
+    host: string  
+  }
   buildBranch: string 
+
+
 }
