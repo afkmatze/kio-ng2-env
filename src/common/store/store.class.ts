@@ -1,4 +1,5 @@
 import { EnvProvider } from './provider.class'
+import * as rxfs from 'rxfs'
 
 export type PartialData<T> = {
   [P in keyof T]?: T[P]
@@ -10,11 +11,25 @@ export class EnvStore<T,P extends EnvProvider<T>> {
 
   protected data:T
 
+  ensureExistance(){
+    return this.env.exists()
+      .then ( doesExist => {
+        if ( !doesExist )
+        {
+          return this.env.create()
+        }
+      } )
+  }
+
   load(){
-    return this.env.read().then ( data => {
-      this.data = data
-      return this
-    } )
+    return this.ensureExistance()
+      .then ( 
+        () => this.env.read()
+          .then ( data => {
+            this.data = data
+            return this
+          } )
+      )
   }
 
   save(){

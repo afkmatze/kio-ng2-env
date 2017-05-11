@@ -26,7 +26,7 @@
     "tsc:release": "tsc -p tsconfig.release.json",
     "tsc:release:watch": "tsc -p tsconfig.release.json -w",
     "package:minify": "uglifyjs release/index.js --source-map release/index.min.js.map --source-map-url release/index.js.map --compress --mangle --screw-ie8 --output release/index.min.js",
-    "node:test": "ts-mocha ./src/node/**.spec.ts",
+    "node:test": "ts-mocha ./src/node/**/*.spec.ts ./src/node/*.spec.ts",
     "node:test:watch": "./scripts/watch.sh node:test",
     "browser:test": "karma start ./karma.browser.js"
   },

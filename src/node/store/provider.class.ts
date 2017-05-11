@@ -1,4 +1,7 @@
 import * as fs from 'fs'
+import * as rxfs from 'rxfs'
+import { Observable } from 'rxjs'
+
 import * as path from 'path'
 import { EnvProvider, ENV_FILEPATH } from '../../common'
 
@@ -49,8 +52,15 @@ export class NodeEnvProvider<T> extends EnvProvider<T> {
           .then ( fileContent => JSON.parse ( fileContent ) )
   }
 
+  create ( ):Promise<boolean> {
+    return rxfs.writeFile(this.resolveEnvFile(),Observable.of(new Buffer('{}')),'utf8').toPromise()
+  }
+
   write ( data:T ):Promise<boolean> {
     return this.writeEnvFile (data)
   }
 
+  exists(){
+    return rxfs.exists(this.resolveEnvFile()).toPromise()
+  }
 }
