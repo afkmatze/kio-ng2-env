@@ -1,5 +1,5 @@
 import * as os from 'os'
-import { Machine } from './interfaces'
+import { Machine } from '../../../common'
 
 const machine:Machine = {
   release: os.release(),

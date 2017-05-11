@@ -1,13 +1,11 @@
 import { Observable } from 'rxjs/Observable'
+import { Machine } from '../../common'
 import * as git from './git'
-import { Branch } from './git'
 import * as os from './os'
-import { Machine } from './os'
 import * as modules from './modules'
 
 
 export { git, os, modules }
-
 
 
 export const update = ( data?:any ) => {
@@ -21,7 +19,7 @@ export const update = ( data?:any ) => {
               buildCount: ((data && data.buildCount) || 0 ) + 1,
               buildTime: new Date(),
               buildMachine: os.machine,
-              buildBranch: branch ,
+              buildBranch: branch.name ,
               modules,
             }
           } )

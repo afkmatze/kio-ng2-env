@@ -1,3 +1,4 @@
+export * from './info'
 import { EnvStore } from './store/store.class'
 import { EnvProvider } from './store/provider.class'
 export * from './project'

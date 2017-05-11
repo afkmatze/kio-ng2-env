@@ -5,6 +5,12 @@ export declare class ProjectEnv implements Project {
     constructor(name: string, root: ProjectRootLocation);
     buildCount: number;
     buildTime: Date;
-    buildMachine: string;
+    buildMachine: {
+        release: string;
+        type: string;
+        username: string;
+        arch: string;
+        host: string;
+    };
     buildBranch: string;
 }

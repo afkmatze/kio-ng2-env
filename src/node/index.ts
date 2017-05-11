@@ -1,7 +1,8 @@
+import { Observable } from 'rxjs'
 import { NodeEnvProvider } from './store/provider.class'
-import { EnvStore } from '../common'
+import { EnvStore, Machine, Branch, Repository, CommitShort, Commit } from '../common'
 
-import { command as prebuildCmd } from './store/commands/prebuild'
+import { git, os, modules, update } from './info'
 
 export let globalStore
 
@@ -13,5 +14,5 @@ export const createStore = <T>() => {
 
 
 export const api = {
-  prebuild: () => prebuildCmd (globalStore)
+  git, os, modules, update
 }

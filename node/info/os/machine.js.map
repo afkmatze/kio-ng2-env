@@ -1,0 +1,1 @@
+{"version":3,"file":"machine.js","sourceRoot":"","sources":["../../../../src/node/info/os/machine.ts"],"names":[],"mappings":";;AAAA,yBAAwB;AAGxB,MAAM,OAAO,GAAW;IACtB,OAAO,EAAE,EAAE,CAAC,OAAO,EAAE;IACrB,IAAI,EAAE,EAAE,CAAC,IAAI,EAAE;IACf,QAAQ,EAAE,EAAE,CAAC,QAAQ,EAAE,CAAC,QAAQ;IAChC,IAAI,EAAE,EAAE,CAAC,IAAI,EAAE;IACf,IAAI,EAAE,EAAE,CAAC,QAAQ,EAAE;CACpB,CAAA;AAED,kBAAe,OAAO,CAAA"}

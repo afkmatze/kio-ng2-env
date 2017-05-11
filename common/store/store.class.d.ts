@@ -6,6 +6,7 @@ export declare class EnvStore<T, P extends EnvProvider<T>> {
     private env;
     constructor(env: P);
     protected data: T;
+    ensureExistance(): Promise<boolean>;
     load(): Promise<this>;
     save(): Promise<boolean>;
     get<P extends keyof T>(key: P): T[P];

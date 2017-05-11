@@ -4,11 +4,21 @@ class EnvStore {
     constructor(env) {
         this.env = env;
     }
+    ensureExistance() {
+        return this.env.exists()
+            .then(doesExist => {
+            if (!doesExist) {
+                return this.env.create();
+            }
+        });
+    }
     load() {
-        return this.env.read().then(data => {
+        return this.ensureExistance()
+            .then(() => this.env.read()
+            .then(data => {
             this.data = data;
             return this;
-        });
+        }));
     }
     save() {
         if (!this.data) {

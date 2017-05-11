@@ -1,0 +1,16 @@
+{
+  "name": "test-parent",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "ts-mocha ./index.spec.ts",
+    "test:watch": "./scripts/watch.sh test"
+  },
+  "author": "Matthias Buchholz <mb@averagejoe.de>",
+  "license": "ISC",
+  "dependencies": {
+    "kio-ng2": "github:afkmatze/kio-ng2",
+    "kio-ng2-env": "github:afkmatze/kio-ng2-env"
+  }
+}

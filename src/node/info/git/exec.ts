@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs'
 import { exec, ExecData } from 'rxfs'
-import { Commit, CommitShort, Branch } from './interfaces'
+import { Commit, CommitShort, Branch } from '../../../common'
 
 const execGit = ( commandArgs:string ) => {
   return exec ( `git ${commandArgs}` ).map ( row => row.stdout.toString('utf8') )
