@@ -5,11 +5,11 @@ const execGit = (commandArgs) => {
     return rxfs_1.exec(`git ${commandArgs}`).map(row => row.stdout.toString('utf8'));
 };
 const parseBranch = (branchString) => {
-    const [_, flag, name, commit, message] = branchString.match(/(^\*)?\ *(\w+)\ *(\w+)\ (.+)/);
+    const [_, flag, name, hash, message] = branchString.match(/(^\*)?\ *(\w+)\ *(\w+)\ (.+)/);
     return {
         current: flag === '*',
         name,
-        commit,
+        hash,
         message
     };
 };

@@ -4,5 +4,5 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./project.type-checks"));
-__export(require("./project.class"));
+//export * from './project.class' 
 //# sourceMappingURL=index.js.map

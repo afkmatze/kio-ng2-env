@@ -1,6 +1,9 @@
 import { Observable } from 'rxjs'
 import { exists, readdir } from 'rxfs'
+import { find } from 'rxshell'
 import * as path from 'path'
+import { fromPath } from './module'
+import { ModuleInfo, Repository, RepositoryType, GIT } from '../../../common'
 
 const logMap = ( label ) => ( item , idx ) => {
   console.log( '%s no %s\n', label, idx, item )
@@ -9,7 +12,7 @@ const logMap = ( label ) => ( item , idx ) => {
 
 export const pathBefore = ( dirname:string ):string => {
   const pathChunks = __dirname.split( dirname )
-  return path.normalize ( pathChunks[0] )
+  return path.normalize ( pathChunks[0] ).slice(0,-1)
 }
 
 /**
@@ -32,17 +35,32 @@ export const rootPath = ( ):string => {
   return pathBefore ( 'node_modules' )
 }
 
+export const rootModule = <T extends RepositoryType>():ModuleInfo<T> => {
+  const filepath = rootPath()
+  return fromPath<T>(filepath)
+}
 
-export const kioModules = ( ) => {
+export const modulePaths = ( ) => {
   const parentModulePaths:string[] = module.parent["paths"]
   return Observable.from(parentModulePaths)
-    .flatMap ( filepath => exists(filepath).map ( pathExists => ({
-      filepath ,
-      pathExists
-    }) ) )
-    .filter ( ({filepath,pathExists}) => pathExists === true ).map ( ({filepath}) => filepath )
-    //.map ( logMap('filepath') )
-    .concatMap ( 
-      modulesPath => readdir(modulesPath).filter ( filepath => /^kio\-ng2/.test(filepath) )
+      .flatMap ( filepath => exists(filepath).map ( pathExists => ({
+        filepath ,
+        pathExists
+      }) ) )
+      .filter ( p => p.pathExists === true ).map ( p => p.filepath )
+      
+}
+
+export const kioModulesAtPath = ( modulesPath:string ) => {
+  return find(['.','-maxdepth','1'],modulesPath).map ( s => s.stdout.toString('utf8').substr(2) )
+        .filter ( filepath => /^kio\-ng2/.test(path.basename(filepath)) ).distinct()
+        .map ( fromPath )
+}
+
+export const kioModules = ( ) => {
+  return modulePaths()
+    //.map ( logMap('existing path') )
+    .mergeMap ( 
+      modulesPath => kioModulesAtPath ( modulesPath )
     )
 }

@@ -11,6 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "kio-ng2": "github:afkmatze/kio-ng2",
-    "kio-ng2-env": "github:afkmatze/kio-ng2-env"
+    "kio-ng2-env": "git@dergoldenefoehn.de:/opt/git/kio-ng2-env.git"
   }
 }

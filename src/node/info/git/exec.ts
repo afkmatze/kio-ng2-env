@@ -7,11 +7,11 @@ const execGit = ( commandArgs:string ) => {
 }
 
 const parseBranch = ( branchString:string ):Branch => {
-  const [ _, flag, name, commit, message] = branchString.match ( /(^\*)?\ *(\w+)\ *(\w+)\ (.+)/ )
+  const [ _, flag, name, hash, message] = branchString.match ( /(^\*)?\ *(\w+)\ *(\w+)\ (.+)/ )
     return {
       current: flag === '*',
       name ,
-      commit ,
+      hash ,
       message
     }
 }

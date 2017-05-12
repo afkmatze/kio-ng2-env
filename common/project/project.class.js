@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class ProjectEnv {
+class ProjectEnv /*implements Project*/ {
     constructor(name, root) {
         this.name = name;
         this.root = root;

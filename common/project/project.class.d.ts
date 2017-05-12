@@ -1,5 +1,5 @@
-import { ProjectRootLocation, Project } from './interfaces';
-export declare class ProjectEnv implements Project {
+import { ProjectRootLocation } from './interfaces';
+export declare class ProjectEnv {
     readonly name: string;
     readonly root: ProjectRootLocation;
     constructor(name: string, root: ProjectRootLocation);

@@ -1,6 +1,13 @@
 import { Observable } from 'rxjs'
 import { NodeEnvProvider } from './store/provider.class'
-import { EnvStore, Machine, Branch, Repository, CommitShort, Commit } from '../common'
+import { 
+  EnvStore, Machine, Branch, 
+  Repository, CommitShort, Commit,
+  Project, ProjectInfo, 
+  ModuleInfo 
+} from '../common'
+
+import { updateProject } from './actions/updateInfo'
 
 import { git, os, modules, update } from './info'
 
@@ -14,5 +21,5 @@ export const createStore = <T>() => {
 
 
 export const api = {
-  git, os, modules, update
+  git, os, modules, updateProject
 }

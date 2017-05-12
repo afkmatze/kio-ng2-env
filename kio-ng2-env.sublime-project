@@ -1,0 +1,29 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+      "folder_exclude_patterns": ["node_modules","test-parent"]
+		},
+    {
+      "path": "./test-parent",
+      "name": "Test Parent",
+      "folder_exclude_patterns": ["node_modules"]      
+    },
+    {
+      "path": "./src/browser",
+      "name": "Browser Source",
+      "folder_exclude_patterns": []      
+    },
+    {
+      "path": "./src/node",
+      "name": "Node Source",
+      "folder_exclude_patterns": []      
+    },
+    {
+      "path": "./src/common",
+      "name": "Common Source",
+      "folder_exclude_patterns": []      
+    }
+	]
+}

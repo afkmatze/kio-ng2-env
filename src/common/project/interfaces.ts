@@ -4,22 +4,18 @@ import {
   Types as LTypes
 } from '../location'
 
+import { 
+  Machine, ModuleInfo, RepositoryType
+} from '../../common'
+
 export interface ProjectInfo {
   name: string  
-}
-
-export interface MachineInfo {
-  release: string,
-  type: string,
-  username: string,
-  arch: string,
-  host: string  
 }
 
 export interface BuildInfo {
   buildCount: number
   buildTime: Date
-  buildMachine: MachineInfo
+  buildMachine: Machine
   buildBranch: string 
 }
 
@@ -29,7 +25,8 @@ export interface ProjectRootLocation {
 }
 
 
-export interface Project extends ProjectInfo, BuildInfo 
+export interface Project<T extends RepositoryType> extends ProjectInfo, BuildInfo 
 {
-  root: ProjectRootLocation  
+  root: ProjectRootLocation
+  rootModule: ModuleInfo<T>
 }
