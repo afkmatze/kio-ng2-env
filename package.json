@@ -31,7 +31,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@dergoldenefoehn.de:/opt/git/kio-ng2-env.git"
+    "url": "git@github.com:afkmatze/kio-ng2-env.git"
   },
   "keywords": [],
   "author": "Matthias Buchholz <mb@averagejoe.de>",
