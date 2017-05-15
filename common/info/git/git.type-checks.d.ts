@@ -1,0 +1,17 @@
+import { RemoteType } from './remote-type.enum';
+import { CommitShort } from './interfaces';
+export declare const isCommitShort: (other: any) => other is CommitShort;
+import { Commit } from './interfaces';
+export declare const isCommit: (other: any) => other is Commit;
+import { Branch } from './interfaces';
+export declare const isBranch: (other: any) => other is Branch;
+import { RemoteAbstract } from './interfaces';
+export declare const isRemoteAbstract: (other: any) => other is RemoteAbstract;
+import { RemoteInfo } from './interfaces';
+export declare const isRemoteInfo: <T extends RemoteType>(other: any) => other is RemoteInfo<T>;
+import { Remote } from './interfaces';
+export declare const isRemote: (other: any) => other is Remote;
+import { Repository } from './interfaces';
+export declare const isRepository: (other: any) => other is Repository;
+import { RepositoryLocation } from './interfaces';
+export declare const isRepositoryLocation: (other: any) => other is RepositoryLocation;

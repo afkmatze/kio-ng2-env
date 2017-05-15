@@ -1,17 +1,35 @@
+import { Observable } from 'rxjs'
+
+export type DefaultData<T> = T|Observable<T>|Promise<T>
+
 export abstract class EnvProvider<T> {
 
-  abstract read ():Promise<T> 
+  constructor(readonly filepath?:string){}
 
-  create ( ):Promise<boolean> {
-    return Promise.reject ('env can not be written by provider.')
+  abstract read ():Observable<T> 
+
+  resolve<T>( data:DefaultData<T> ):Observable<T> {
+    if ( data instanceof Observable )
+    {
+      return data.share()
+    }
+    if ( data instanceof Promise )
+    {
+      return Observable.fromPromise(data)
+    }
+    return Observable.of(data)
   }
 
-  write ( data:T ):Promise<boolean> {
-    return Promise.reject ('env can not be written by provider.')
+  create ( defaultData?:DefaultData<T> ):Observable<boolean> {
+    return Observable.throw ('env can not be written by provider.')
   }
 
-  exists(){
-    return Promise.resolve(true)
+  write ( data:T ):Observable<boolean> {
+    return Observable.throw ('env can not be written by provider.')
+  }
+
+  exists():Observable<boolean>{
+    return Observable.of(true)
   }
 
 }

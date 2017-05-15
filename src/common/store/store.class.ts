@@ -1,33 +1,84 @@
-import { EnvProvider } from './provider.class'
+import { Observable } from 'rxjs'
+import { EnvProvider, DefaultData } from './provider.class'
 import * as rxfs from 'rxfs'
+import { isProject } from '../project'
+
 
 export type PartialData<T> = {
   [P in keyof T]?: T[P]
 }
 
-export class EnvStore<T,P extends EnvProvider<T>> {
+export const isKeyOf = <T>( key:string, other:T ):key is keyof T => {
+  return key in other
+}
 
-  constructor(private env:P){}
+export interface EnvData {
+  [key:string]: any
+}
+
+export const merge = <T, K extends keyof T>( data:T, other:Partial<T> ):T => {
+  const keys = Object.keys(data).concat(Object.keys(other))
+
+  keys
+  .filter( (key,idx) => keys.indexOf(key) === idx )
+  .forEach ( key => {
+    if ( isKeyOf(key,other) )
+    {
+      data[key] = other[key]
+    }
+  } )
+  return data
+}
+
+export class EnvStore<T extends EnvData> {
+
+  constructor(private env:EnvProvider<T>,protected defaultData?:T|Observable<T>)
+  {}
 
   protected data:T
 
+  getDefaultData():Observable<T>{
+    if ( this.defaultData instanceof Observable )
+    {
+      return this.defaultData.map ( defaultData => {
+        this.defaultData = defaultData
+        return defaultData
+      } )
+    }
+    else {
+      return Observable.of(this.defaultData)
+    }
+  }
+
   ensureExistance(){
     return this.env.exists()
-      .then ( doesExist => {
+      .flatMap ( doesExist => {
         if ( !doesExist )
         {
-          return this.env.create()
+          console.log('env does not exist', this.defaultData)
+          return this.env.create(this.getDefaultData())
         }
+        return Observable.of(true)
       } )
+  }
+
+  protected mergeDefault () {
+    return this.getDefaultData().map ( defaultData => {
+      this.data = merge(defaultData,this.data)
+      return this
+    } )
   }
 
   load(){
     return this.ensureExistance()
-      .then ( 
-        () => this.env.read()
-          .then ( data => {
+      .flatMapTo ( this.env.read()
+          .flatMap ( data => {
             this.data = data
-            return this
+            if ( !isProject(data) && this.defaultData )
+            {
+              return this.mergeDefault()
+            }
+            return Observable.of(this)
           } )
       )
   }

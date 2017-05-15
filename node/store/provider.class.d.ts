@@ -1,11 +1,12 @@
-import { EnvProvider } from '../../common';
+import { Observable } from 'rxjs';
+import { EnvProvider, DefaultData } from '../../common';
 export declare class NodeEnvProvider<T> extends EnvProvider<T> {
     protected resolveEnvFile(): string;
-    protected readEnvFile(): Promise<string>;
+    protected readEnvFile(): Observable<string>;
     protected toJSON(data: T): string;
-    protected writeEnvFile(data: T): Promise<boolean>;
-    read(): Promise<T>;
-    create(): Promise<boolean>;
-    write(data: T): Promise<boolean>;
-    exists(): Promise<boolean>;
+    protected writeEnvFile(data: T): Observable<boolean>;
+    read(): Observable<T>;
+    create<T>(defaultData?: DefaultData<T>): Observable<boolean>;
+    write(data: T): Observable<boolean>;
+    exists(): Observable<boolean>;
 }

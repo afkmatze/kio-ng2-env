@@ -3,19 +3,19 @@ import * as rxfs from 'rxfs'
 import { Observable } from 'rxjs'
 
 import * as path from 'path'
-import { EnvProvider, ENV_FILEPATH } from '../../common'
+import { EnvProvider, ENV_FILEPATH, DefaultData } from '../../common'
 
 const ROOT_DIR = path.resolve('./').replace ( /\/node_modules\/.*/, '' )
 
 export class NodeEnvProvider<T> extends EnvProvider<T> {
 
   protected resolveEnvFile ():string {
-    return ENV_FILEPATH
+    return this.filepath || ENV_FILEPATH
   }
 
-  protected readEnvFile ():Promise<string> {
+  protected readEnvFile ():Observable<string> {
     const envFilepath = this.resolveEnvFile ()
-    return new Promise((resolve,reject)=>{
+    return Observable.fromPromise(new Promise((resolve,reject)=>{
       fs.readFile ( envFilepath, 'utf8', ( error, content ) => {
         if ( error )
         {
@@ -25,16 +25,16 @@ export class NodeEnvProvider<T> extends EnvProvider<T> {
           resolve ( content )
         }
       } )
-    })
+    }))
   }
 
   protected toJSON (data:T) {
     return JSON.stringify(data,null,'  ')
   } 
 
-  protected writeEnvFile ( data:T ):Promise<boolean> {
+  protected writeEnvFile ( data:T ):Observable<boolean> {
     const envFilepath = this.resolveEnvFile ()
-    return new Promise((resolve,reject)=>{
+    return Observable.fromPromise(new Promise((resolve,reject)=>{
       fs.writeFile ( envFilepath, this.toJSON(data), 'utf8', ( error ) => {
         if ( error )
         {
@@ -44,23 +44,56 @@ export class NodeEnvProvider<T> extends EnvProvider<T> {
           resolve ( true )
         }
       } )
-    })
+    }))
   }
 
-  read ():Promise<T> {
+  read ():Observable<T> {
     return this.readEnvFile()
-          .then ( fileContent => JSON.parse ( fileContent ) )
+      .map ( fileContent => {
+        return JSON.parse ( fileContent )
+      } )
+      .map ( project => {
+        const {
+          components=[]
+        } = project
+
+        project.components = components.map ( component => {
+          if ( !component.modifiers )
+          {
+            component.modifiers = []
+          }
+          return component
+        } )
+
+        return project
+      } )
   }
 
-  create ( ):Promise<boolean> {
-    return rxfs.writeFile(this.resolveEnvFile(),Observable.of(new Buffer('{}')),'utf8').toPromise()
+  create <T>( defaultData?:DefaultData<T> ):Observable<boolean> {
+    if ( !defaultData )
+    {
+      return this.create({})
+    }
+    if ( defaultData instanceof Observable )
+    {
+      return defaultData.flatMap ( data => {
+        return this.create(data)
+      } )
+    }
+    else if ( defaultData instanceof Promise )
+    {
+      return this.create(Observable.fromPromise(defaultData))
+    }
+    const data = JSON.stringify(defaultData,null,'  ')
+    console.log('write data \n\x1b[2m%s\x1b[0m',data)
+    return rxfs.writeFile(this.resolveEnvFile(),Observable.of(new Buffer(data)))
   }
 
-  write ( data:T ):Promise<boolean> {
+  write ( data:T ):Observable<boolean> {
     return this.writeEnvFile (data)
   }
 
   exists(){
-    return rxfs.exists(this.resolveEnvFile()).toPromise()
+    return rxfs.exists(this.resolveEnvFile())
   }
 }

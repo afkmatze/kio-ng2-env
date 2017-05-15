@@ -2,26 +2,19 @@ import { Observable } from 'rxjs/Observable'
 import { 
   Machine, ModuleInfo, 
   Repository, RepositoryType, isRepositoryType, isGIT,
-  isRepository, isGitRepository, isProjectInfo, isProjectRootLocation, 
+  isProjectInfo, isProjectRootLocation, 
   ProjectRootLocation, Project, ProjectInfo, EnvStore, EnvProvider
 } from '../../common'
+export * from '../../common'
 import * as git from './git'
 import * as os from './os'
 import * as modules from './modules'
 
+export { git , modules , os }
 
-export { 
-  git, os, modules,
-  Machine, ModuleInfo, 
-  Repository, RepositoryType, isRepositoryType, isGIT,
-  isRepository, isGitRepository, isProjectInfo, isProjectRootLocation, 
-  ProjectRootLocation, Project, ProjectInfo, EnvStore, EnvProvider
-}
+export const update = ( cwd:string, data?:any ) => {
 
-
-export const update = ( data?:any ) => {
-
-  return git.branches()
+  return git.branches(cwd)
         .filter ( branch => branch.current === true )
         .concatMap ( branch => {
 
