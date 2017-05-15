@@ -2,6 +2,7 @@ import 'mocha'
 import { expect } from 'chai'
 import { branches, commits } from './exec'
 import { GitRepository } from './'
+import { RemoteType } from '../../../common'
 import * as path from 'path'
 
 describe('Test git repository',function(){

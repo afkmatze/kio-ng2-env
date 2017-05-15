@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const location_type_checks_1 = require("../location/location.type-checks");
+//import { RootModuleInfo, ModuleInfo } from '../../common'
 const kio_ng2_component_routing_1 = require("kio-ng2-component-routing");
 exports.isModuleInfo = (other) => {
     return ('name' in other
@@ -23,6 +23,15 @@ exports.isBuildInfo = (other) => {
 exports.isProjectInfo = (info) => {
     return ('name' in info);
 };
+exports.isProjectProp = (key) => {
+    return (key === 'rootModule'
+        ||
+            key === 'lastBuild'
+        ||
+            key === 'components'
+        ||
+            key === 'name');
+};
 exports.isProject = (info) => {
     return ('rootModule' in info && exports.isRootModuleInfo(info.rootModule)
         &&
@@ -31,10 +40,5 @@ exports.isProject = (info) => {
             'components' in info && Array.isArray(info.components) && info.components.every(kio_ng2_component_routing_1.isNamedComponent)
         &&
             exports.isProjectInfo(info));
-};
-exports.isProjectRootLocation = (location) => {
-    return ('local' in location && location_type_checks_1.isLocation(location.local)
-        &&
-            'remote' in location && location_type_checks_1.isLocation(location.remote));
 };
 //# sourceMappingURL=project.type-checks.js.map

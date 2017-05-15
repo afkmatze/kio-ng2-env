@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs'
 import { 
   Machine, ModuleInfo, 
-  isProjectInfo, isProjectRootLocation, 
-  ProjectRootLocation, Project, ProjectInfo, EnvStore, EnvProvider,
+  isProjectInfo, 
+  Project, ProjectInfo, EnvStore, EnvProvider,
   RepositoryInfo, BuildInfo,
   RootModuleInfo,
   Branch, CommitShort, Commit

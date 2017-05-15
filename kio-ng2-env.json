@@ -1,0 +1,48 @@
+{
+  "name": "next-digitorial",
+  "rootModule": {
+    "name": "next-digitorial",
+    "filepath": "/Users/tEErohr/Documents/kio/angular2/digit/next-digitorial",
+    "version": "0.0.0",
+    "children": [
+      {
+        "name": "kio-ng2",
+        "filepath": "/Users/tEErohr/Documents/kio/angular2/digit/modules/kio-ng2-env/node_modules/kio-ng2",
+        "version": "0.0.1",
+        "repository": {
+          "type": "git",
+          "url": "git@github.com:afkmatze/kio-ng2.git"
+        }
+      },
+      {
+        "name": "kio-ng2-component-routing",
+        "filepath": "/Users/tEErohr/Documents/kio/angular2/digit/modules/kio-ng2-env/node_modules/kio-ng2-component-routing",
+        "version": "0.0.4"
+      }
+    ]
+  },
+  "lastBuild": {
+    "buildCount": 0,
+    "buildTime": "2017-05-15T10:01:25.442Z",
+    "buildMachine": {
+      "release": "16.5.0",
+      "type": "Darwin",
+      "username": "tEErohr",
+      "arch": "x64",
+      "host": "Matthiass-Mac-mini.local"
+    },
+    "buildRepository": {
+      "branch": {
+        "current": true,
+        "name": "setup",
+        "hash": "5ed48fa",
+        "message": "[ahead 5] Merge remote-tracking branch 'foehn/master' into setup"
+      },
+      "commit": {
+        "hash": "5ed48fa",
+        "message": "Merge remote-tracking branch 'foehn/master' into setup"
+      }
+    }
+  },
+  "components": []
+}

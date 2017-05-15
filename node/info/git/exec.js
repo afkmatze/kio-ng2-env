@@ -23,7 +23,12 @@ const parseRemote = (remoteString) => {
     };
 };
 exports.remotes = (cwd) => {
-    return execGit('remote -v', cwd).map(parseRemote);
+    return execGit('remote -v', cwd).map(parseRemote)
+        .map(remote => ({
+        name: remote.name,
+        url: remote.url
+    }))
+        .distinct(remote => remote.name);
 };
 exports.branches = (cwd) => execGit('branch -v', cwd).map(parseBranch);
 const parseCommitShort = (commitString) => {

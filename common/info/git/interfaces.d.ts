@@ -21,7 +21,7 @@ export interface Remote extends RemoteAbstract {
     branches: Branch[];
 }
 export interface Repository {
-    remotes: Remote[];
+    remotes: RemoteAbstract[];
     branches: Branch[];
 }
 export interface RepositoryLocation extends Repository {

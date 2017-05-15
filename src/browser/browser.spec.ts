@@ -1,42 +1,34 @@
 import 'jasmine'
-import { createStore } from './'
-const envData = require('../../kio-env.json')
+import defaultStore from './'
+import { Project, isProject, isProjectProp } from '../common'
+const envData = require('../../kio-ng2-env.json')
 
 describe('Test scope',function(){
 
-  let store 
-  beforeAll(()=>{
-    store = createStore()
-  })
-
   it('exists',function(){
 
-    expect(store).toBeTruthy()
+    expect(defaultStore).toBeTruthy()
 
   })
 
-  it('loads',function(){
-    return store.load()
-      .then ( st => {
-        expect(st.data).toEqual(envData)
-      } )
+  it('has "name"',function(){
+    expect(defaultStore.hasKey('name')).toBeTruthy()
   })
 
   it('throws on save',function(){
-    expect(store.save).toThrowError()
+    expect(defaultStore.save).toThrowError()
   })
 
   describe('getter',()=>{
 
     const keys = Object.keys(envData)
-
     keys.forEach ( (key,idx) => {
-
-      it ( `store.get('${key}') === '${envData[key]}'`, () => {
-
-        expect(store.get(key)).toEqual(envData[key])
-
-      } )
+      if ( isProjectProp (key) )
+      {
+        it ( `store.get('${key}') === '${envData[key]}'`, () => {
+          expect(defaultStore.get(key)).toEqual(envData[key])
+        } )
+      }
 
     } )
 

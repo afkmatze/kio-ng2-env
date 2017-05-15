@@ -2,8 +2,7 @@ import { Observable } from 'rxjs/Observable'
 import { 
   Machine, ModuleInfo, 
   Repository, RepositoryType, isRepositoryType, isGIT,
-  isProjectInfo, isProjectRootLocation, 
-  ProjectRootLocation, Project, ProjectInfo, EnvStore, EnvProvider
+  isProjectInfo, Project, ProjectInfo, EnvStore, EnvProvider
 } from '../../common'
 export * from '../../common'
 import * as git from './git'

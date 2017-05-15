@@ -8,4 +8,22 @@ const common_1 = require("../common");
 __export(require("./store/provider.class"));
 exports.createProvider = () => new provider_class_1.BrowserEnvProvider();
 exports.createStore = () => new common_1.EnvStore(exports.createProvider());
+const syncObservable = (obs) => {
+    let data;
+    let err;
+    obs.subscribe(result => {
+        data = result;
+    }, error => {
+        err = error;
+    });
+    while (!data && !err) {
+        true;
+    }
+    if (err) {
+        throw Error(err);
+    }
+    return data;
+};
+const defaultStore = exports.createStore();
+exports.default = syncObservable(defaultStore.load());
 //# sourceMappingURL=index.js.map

@@ -32,10 +32,9 @@ export class NodeEnvProvider<T> extends EnvProvider<T> {
     return JSON.stringify(data,null,'  ')
   } 
 
-  protected writeEnvFile ( data:T ):Observable<boolean> {
-    const envFilepath = this.resolveEnvFile ()
+  protected writeEnvFile ( data:T, filepath:string=this.resolveEnvFile () ):Observable<boolean> {
     return Observable.fromPromise(new Promise((resolve,reject)=>{
-      fs.writeFile ( envFilepath, this.toJSON(data), 'utf8', ( error ) => {
+      fs.writeFile ( filepath, this.toJSON(data), 'utf8', ( error ) => {
         if ( error )
         {
           reject ( error )
@@ -85,12 +84,18 @@ export class NodeEnvProvider<T> extends EnvProvider<T> {
       return this.create(Observable.fromPromise(defaultData))
     }
     const data = JSON.stringify(defaultData,null,'  ')
-    console.log('write data \n\x1b[2m%s\x1b[0m',data)
+    //console.log('write data \n\x1b[2m%s\x1b[0m',data)
     return rxfs.writeFile(this.resolveEnvFile(),Observable.of(new Buffer(data)))
   }
 
   write ( data:T ):Observable<boolean> {
-    return this.writeEnvFile (data)
+    return this.writeEnvFile (data).flatMap ( success => {
+      if ( this.resolveEnvFile() !== ENV_FILEPATH )
+      {
+        return this.writeEnvFile(data,ENV_FILEPATH)
+      }
+      return Observable.of(success)
+    } )
   }
 
   exists(){

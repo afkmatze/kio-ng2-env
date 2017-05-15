@@ -8,7 +8,7 @@ describe('Test store',function(){
 
   it('updates initially',(done)=>{
 
-    update().subscribe(info => {
+    update(process.env.KIO_NG2_PROJECT).subscribe(info => {
       expect(info).to.be.an('object')
       updateData = info
       console.log('info',info)
@@ -18,7 +18,7 @@ describe('Test store',function(){
 
   it('updates data',(done)=>{
   
-    update(updateData).subscribe(info => {
+    update(process.env.KIO_NG2_PROJECT,updateData).subscribe(info => {
       expect(info.buildCount).to.equal(updateData.buildCount+1)
       console.log('info',info)
     },done,done)

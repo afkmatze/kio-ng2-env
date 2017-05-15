@@ -4,7 +4,7 @@ export declare class NodeEnvProvider<T> extends EnvProvider<T> {
     protected resolveEnvFile(): string;
     protected readEnvFile(): Observable<string>;
     protected toJSON(data: T): string;
-    protected writeEnvFile(data: T): Observable<boolean>;
+    protected writeEnvFile(data: T, filepath?: string): Observable<boolean>;
     read(): Observable<T>;
     create<T>(defaultData?: DefaultData<T>): Observable<boolean>;
     write(data: T): Observable<boolean>;

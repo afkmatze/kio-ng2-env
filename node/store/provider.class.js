@@ -26,10 +26,9 @@ class NodeEnvProvider extends common_1.EnvProvider {
     toJSON(data) {
         return JSON.stringify(data, null, '  ');
     }
-    writeEnvFile(data) {
-        const envFilepath = this.resolveEnvFile();
+    writeEnvFile(data, filepath = this.resolveEnvFile()) {
         return rxjs_1.Observable.fromPromise(new Promise((resolve, reject) => {
-            fs.writeFile(envFilepath, this.toJSON(data), 'utf8', (error) => {
+            fs.writeFile(filepath, this.toJSON(data), 'utf8', (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -68,11 +67,16 @@ class NodeEnvProvider extends common_1.EnvProvider {
             return this.create(rxjs_1.Observable.fromPromise(defaultData));
         }
         const data = JSON.stringify(defaultData, null, '  ');
-        console.log('write data \n\x1b[2m%s\x1b[0m', data);
+        //console.log('write data \n\x1b[2m%s\x1b[0m',data)
         return rxfs.writeFile(this.resolveEnvFile(), rxjs_1.Observable.of(new Buffer(data)));
     }
     write(data) {
-        return this.writeEnvFile(data);
+        return this.writeEnvFile(data).flatMap(success => {
+            if (this.resolveEnvFile() !== common_1.ENV_FILEPATH) {
+                return this.writeEnvFile(data, common_1.ENV_FILEPATH);
+            }
+            return rxjs_1.Observable.of(success);
+        });
     }
     exists() {
         return rxfs.exists(this.resolveEnvFile());

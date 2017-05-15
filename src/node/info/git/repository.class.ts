@@ -22,14 +22,14 @@ export class GitRepository implements RepositoryLocation {
   }
 
   protected _filepath:string
-  protected _remotes:Remote[]
+  protected _remotes:RemoteAbstract[]
   protected _branches:Branch[]
 
   get filepath():string {
     return this._filepath
   }
   
-  get remotes():Remote[] {
+  get remotes():RemoteAbstract[] {
     return this._remotes.slice()
   }
   

@@ -29,8 +29,13 @@ const parseRemote = <T extends RemoteType>( remoteString:string ):RemoteInfo<T> 
     }
 }
 
-export const remotes = <T extends RemoteType>( cwd:string ):Observable<RemoteInfo<T>> => {
+export const remotes = ( cwd:string ):Observable<RemoteAbstract> => {
   return execGit ( 'remote -v', cwd ).map ( parseRemote )
+    .map ( remote => ({
+      name: remote.name,
+      url: remote.url
+    }) )
+    .distinct ( remote => remote.name )
 }
 
 export const branches = ( cwd:string ):Observable<Branch> => execGit('branch -v', cwd).map ( parseBranch )

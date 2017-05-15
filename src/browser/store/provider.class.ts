@@ -3,7 +3,8 @@ import * as path from 'path'
 import { Observable } from 'rxjs'
 import { EnvProvider, ENV_FILEPATH } from '../../common'
 
-const envData = require('../../../kio-env-browser.json')
+//const envDataPath = require.resolve
+const envData = require('../../kio-ng2-env.json')
 
 const ROOT_DIR = path.resolve('./')
 

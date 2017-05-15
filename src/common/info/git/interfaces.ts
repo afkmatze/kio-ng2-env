@@ -28,7 +28,7 @@ export interface Remote extends RemoteAbstract {
 }
 
 export interface Repository {
-  remotes:Remote[]
+  remotes:RemoteAbstract[]
   branches:Branch[]
 }
 

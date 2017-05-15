@@ -1,16 +1,15 @@
-import { isLocation } from '../location/location.type-checks'
-
 import { 
   Branch, isBranch, 
   Commit, isCommit, 
-  CommitShort, isCommitShort,   
+  CommitShort, isCommitShort, 
+  RootModuleInfo, ModuleInfo,
   Remote,  isRemote
 } from '../info'
 import { 
-  ProjectRootLocation, ProjectInfo, Project, BuildInfo
+  ProjectInfo, Project, BuildInfo
 } from './interfaces'
 
-import { RootModuleInfo, ModuleInfo } from '../../common'
+//import { RootModuleInfo, ModuleInfo } from '../../common'
 import { NamedComponent, isNamedComponent } from 'kio-ng2-component-routing'
 
 
@@ -47,6 +46,18 @@ export const isProjectInfo = ( info:any ):info is ProjectInfo => {
     )
 }
 
+export const isProjectProp = ( key:string ): key is keyof Project => {
+  return (
+      key === 'rootModule'
+      ||
+      key === 'lastBuild'
+      ||
+      key === 'components'
+      ||
+      key === 'name'
+    )
+}
+
 export const isProject = ( info:any ):info is Project => {
   return (
       'rootModule' in info && isRootModuleInfo(info.rootModule)
@@ -56,13 +67,5 @@ export const isProject = ( info:any ):info is Project => {
       'components' in info && Array.isArray(info.components) && info.components.every(isNamedComponent)
       &&
       isProjectInfo(info)
-    )
-}
-
-export const isProjectRootLocation = ( location:any ):location is ProjectRootLocation => {
-  return (
-      'local' in location && isLocation(location.local)
-      &&
-      'remote' in location && isLocation(location.remote)
     )
 }
