@@ -64,7 +64,7 @@
   },
   "dependencies": {
     "@types/node": "^7.0.18",
-    "kio-ng2-component-routing": "git+https://github.com/afkmatze/kio-ng2-component-routing.git",
+    "kio-ng2-component-routing": "github:afkmatze/kio-ng2-component-routing",
     "rx-node": "^1.0.2",
     "rxfs": "github:afkmatze/rxfs",
     "rxshell": "github:afkmatze/rxshell"
