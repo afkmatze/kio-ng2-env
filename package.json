@@ -27,6 +27,8 @@
     "package:minify": "uglifyjs release/index.js --source-map release/index.min.js.map --source-map-url release/index.js.map --compress --mangle --screw-ie8 --output release/index.min.js",
     "node:test": "ts-mocha ./src/node/**/*.spec.ts ./src/node/*.spec.ts",
     "node:test:watch": "./scripts/watch.sh node:test",
+    "node:test:env": "ts-mocha ./src/node/node.spec.ts",
+    "node:test:env:watch": "./scripts/watch.sh node:test:env",
     "browser:test": "karma start ./karma.browser.js"
   },
   "repository": {
@@ -61,6 +63,7 @@
   },
   "dependencies": {
     "@types/node": "^7.0.18",
+    "kio-ng2-component-routing": "git+https://github.com/afkmatze/kio-ng2-component-routing.git",
     "rx-node": "^1.0.2",
     "rxfs": "github:afkmatze/rxfs",
     "rxshell": "github:afkmatze/rxshell"

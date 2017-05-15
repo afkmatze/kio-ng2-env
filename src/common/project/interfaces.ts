@@ -4,19 +4,27 @@ import {
   Types as LTypes
 } from '../location'
 
+import { NamedComponent } from 'kio-ng2-component-routing'
+
 import { 
-  Machine, ModuleInfo, RepositoryType
-} from '../../common'
+  Machine, ModuleInfo, RepositoryType, RootModuleInfo,
+  Branch, CommitShort
+} from '../info'
 
 export interface ProjectInfo {
   name: string  
+}
+
+export interface RepositoryInfo {
+  branch: Branch
+  commit: CommitShort
 }
 
 export interface BuildInfo {
   buildCount: number
   buildTime: Date
   buildMachine: Machine
-  buildBranch: string 
+  buildRepository: RepositoryInfo
 }
 
 export interface ProjectRootLocation {
@@ -24,9 +32,9 @@ export interface ProjectRootLocation {
   origin: Location<LTypes.RemoteLocation>
 }
 
-
-export interface Project<T extends RepositoryType> extends ProjectInfo, BuildInfo 
+export interface Project extends ProjectInfo 
 {
-  root: ProjectRootLocation
-  rootModule: ModuleInfo<T>
+  rootModule: RootModuleInfo
+  lastBuild:BuildInfo
+  components?:NamedComponent[]
 }

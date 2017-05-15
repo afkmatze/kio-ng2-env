@@ -1,6 +1,7 @@
+/// <reference types="node" />
 import { Observable } from 'rxjs';
+export * from './module';
 import { ModuleInfo } from '../../../common';
-export declare const pathBefore: (dirname: string) => string;
 /**
  * resolves root path of kio-ng2-env
  * @type {[type]}
@@ -11,7 +12,10 @@ export declare const moduleRootPath: () => string;
  * @type {[type]}
  */
 export declare const rootPath: () => string;
-export declare const rootModule: <T extends string>() => ModuleInfo<T>;
+export declare const rootModule: () => ModuleInfo;
+export declare const printModuleTree: (mod?: any, depth?: number) => void;
+export declare const modulePathFrom: (mod: NodeModule, rootModule?: NodeModule, path?: NodeModule[]) => NodeModule[];
+export declare const nodeRootModule: (mod?: NodeModule) => any;
 export declare const modulePaths: () => Observable<string>;
-export declare const kioModulesAtPath: (modulesPath: string) => Observable<ModuleInfo<string>>;
-export declare const kioModules: () => Observable<ModuleInfo<string>>;
+export declare const kioModulesAtPath: (modulesPath: string) => Observable<ModuleInfo>;
+export declare const kioModules: () => Observable<ModuleInfo>;

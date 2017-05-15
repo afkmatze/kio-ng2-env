@@ -1,81 +1,82 @@
 import 'mocha'
 import { expect } from 'chai'
-import { createStore, api } from './'
+import * as path from 'path'
+import { 
+  NamedComponent, isNamedComponent, isNamedFragmentComponentStructure, isNamedComponentStructure
+} from 'kio-ng2-component-routing'
+
+import { env, project, createStore, createProvider, EnvStore, EnvProvider, Project } from './'
+
+const projectRoot = process.env.KIO_NG2_PROJECT 
+
+const projectEnvFile = path.join(projectRoot,'next-digitorial.json')
+const TEST_PROVIDER = createProvider(projectEnvFile)
+const TEST_STORE = new EnvStore<Project>(TEST_PROVIDER,project(projectRoot))
 
 describe('Test store',function(){
-  
-  describe('unloaded',function(){
 
-    const envData = require('../../kio-env.json')
-    let keys = Object.keys(envData)
-    let store 
-    before(()=>{
-      store = createStore()
-    })
+  describe(projectRoot,()=>{
 
-    it('exists',function(){
+    describe('provider',()=>{
 
-      expect(store).to.be.an("object")
-
-    })
-
-
-    it('throws on save',function(){
-      expect(()=>store.save()).to.throw('Cannot save before load')
-    })
-
-
-    it('loads',function(){
-      return store.load()
-        .then ( st => {
-          expect(st.data).to.be.deep.equal(envData)
-        } )
-    })
-
-    describe('getter',()=>{
-
-      before(()=>{
-        store = createStore()
-        return store.load()
+      it('exists',()=>{
+        expect(TEST_PROVIDER).to.be.instanceOf(EnvProvider)
       })
-      
-      keys.forEach ( (key,idx) => {
 
-        it ( `store.get('${key}') === '${envData[key]}'`, () => {
+      it('has config file from args',()=>{
+        expect(TEST_PROVIDER.filepath).to.be.equal(projectEnvFile)
+      })
 
-          expect(store.get(key)).to.equal(envData[key])
-
-        } )
-
-      } )
     })
-
-  })
     
+    describe('store',function(){
 
-  describe('loaded',function(){
+      this.timeout(10 * 1000)
 
-    let store 
-    let countBefore
+     it('is store',()=>{
+       expect(TEST_STORE).to.be.instanceOf(EnvStore)
+     })
 
-    before(()=>{
-      store = createStore()
-      return store.load().then ( s => {
-        countBefore = store.get('buildCount')
-      } )
-    })
+     describe('reads',()=>{
+       let testReadStore:EnvStore<Project>
+       beforeEach((done)=> {
+         env(projectRoot).subscribe ( store => {
+           testReadStore = store
+         },done,done)
+       })
+         
+       xit('is test store',()=>{
+         expect(testReadStore).to.be.equal(TEST_STORE)
+       })
+         
+       it('has key "rootModule"',()=>{
+         expect(testReadStore.hasKey('rootModule')).to.be.equal(true)
+       })
+                  
+       it('has key "components"',()=>{
+         const components:NamedComponent[] = testReadStore.get('components')
+         expect(components).to.be.instanceOf(Array)
+         components.forEach((component,idx) => {
+           expect(component).to.contain.keys('name','type','modifiers')
+         })
+       })
+         
+       it('has key "lastBuild"',()=>{
+         expect(testReadStore.hasKey('lastBuild')).to.be.equal(true)
+       })
+         
+       it('has key "name"',()=>{
+         expect(testReadStore.hasKey('name')).to.be.equal(true)
+       })
 
+       it('writes',()=>{
+         return testReadStore.save().toPromise()
+           .then ( success => {
+             expect(success).to.be.equal(true)
+           } )
+       })
 
-    describe('api commands',()=>{
-
-
-      it ( 'prebuild', () => {
-        return api.prebuild()
-      } )
-
-      it( 'increased build count', ()=>{
-        expect(store.get('buildCount')).to.equal(countBefore+1)
-      })
+     })
 
     })
 

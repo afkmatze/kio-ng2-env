@@ -1,13 +1,15 @@
 import { Observable } from 'rxjs';
 import { NodeEnvProvider } from './store/provider.class';
-import { Project } from '../common';
+import { EnvStore, Project } from '../common';
+export * from '../common';
+export * from './project';
 import { git, os, modules } from './info';
 export declare let globalStore: any;
-export declare const createProvider: <T>() => NodeEnvProvider<T>;
-export declare const createStore: <T>() => any;
+export declare const createProvider: <T>(filepath?: string) => NodeEnvProvider<T>;
+export declare const createStore: <T>(defaultData?: T | Observable<T>) => EnvStore<T>;
 export declare const api: {
     git: typeof git;
     os: typeof os;
     modules: typeof modules;
-    updateProject: <T extends string>(info?: Project<T>) => Observable<Project<T>>;
 };
+export declare const env: (projectPath?: string) => Observable<EnvStore<Project>>;
