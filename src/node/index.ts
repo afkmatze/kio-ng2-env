@@ -39,4 +39,7 @@ export const env = ( projectPath:string=modules.resolve.rootPath() ):Observable<
         .flatMap ( projectData => {
           return createStore(projectData).load()
         } )
+        .flatMap ( store => {
+          return store.save().map ( s => store )
+        } )
 }

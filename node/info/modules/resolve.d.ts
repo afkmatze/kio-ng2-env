@@ -12,7 +12,7 @@ export declare const moduleRootPath: () => string;
  * @type {[type]}
  */
 export declare const rootPath: () => string;
-export declare const rootModule: () => ModuleInfo;
+export declare const rootModule: (defaultPath?: string) => ModuleInfo;
 export declare const printModuleTree: (mod?: any, depth?: number) => void;
 export declare const modulePathFrom: (mod: NodeModule, rootModule?: NodeModule, path?: NodeModule[]) => NodeModule[];
 export declare const nodeRootModule: (mod?: NodeModule) => any;

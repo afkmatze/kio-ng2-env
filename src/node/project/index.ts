@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs'
+import * as path from 'path'
 import { 
   Machine, ModuleInfo, 
   isProjectInfo, 
@@ -34,6 +35,13 @@ export const getBuildInfo = (cwd:string):Observable<BuildInfo> => {
     }
     return info
   } )
+}
+
+
+export const projectConfigFile = ( projectPath:string ) => {
+  const rootModule = modules.resolve.fromPath ( projectPath )
+  const configFilename = rootModule.name + '.json'
+  return path.join(projectPath,configFilename)
 }
 
 export const project = ( projectPath:string ):Observable<Project> => {

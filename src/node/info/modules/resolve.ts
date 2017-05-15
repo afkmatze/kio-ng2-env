@@ -34,8 +34,8 @@ export const rootPath = ( ):string => {
   return pathBefore ( 'node_modules', moduleRootPath() )
 }
 
-export const rootModule = ():ModuleInfo => {
-  const filepath = rootPath()
+export const rootModule = ( defaultPath?:string ):ModuleInfo => {
+  const filepath = defaultPath || rootPath()
   console.log('rootModule()',filepath)
   return fromPath(filepath)
 }

@@ -23,6 +23,9 @@ exports.env = (projectPath = info_1.modules.resolve.rootPath()) => {
     return project_1.project(projectPath)
         .flatMap(projectData => {
         return exports.createStore(projectData).load();
+    })
+        .flatMap(store => {
+        return store.save().map(s => store);
     });
 };
 //# sourceMappingURL=index.js.map

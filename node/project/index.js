@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const path = require("path");
 const info_1 = require("../info");
 exports.getRepositoryInfo = (cwd) => {
     return info_1.git.branches(cwd)
@@ -23,6 +24,11 @@ exports.getBuildInfo = (cwd) => {
         };
         return info;
     });
+};
+exports.projectConfigFile = (projectPath) => {
+    const rootModule = info_1.modules.resolve.fromPath(projectPath);
+    const configFilename = rootModule.name + '.json';
+    return path.join(projectPath, configFilename);
 };
 exports.project = (projectPath) => {
     const rootModule = info_1.modules.resolve.fromPath(projectPath);

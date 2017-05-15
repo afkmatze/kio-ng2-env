@@ -33,8 +33,8 @@ exports.rootPath = () => {
     }
     return module_1.pathBefore('node_modules', exports.moduleRootPath());
 };
-exports.rootModule = () => {
-    const filepath = exports.rootPath();
+exports.rootModule = (defaultPath) => {
+    const filepath = defaultPath || exports.rootPath();
     console.log('rootModule()', filepath);
     return module_1.fromPath(filepath);
 };

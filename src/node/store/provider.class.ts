@@ -3,6 +3,7 @@ import * as rxfs from 'rxfs'
 import { Observable } from 'rxjs'
 
 import * as path from 'path'
+import { projectConfigFile } from '../project'
 import { EnvProvider, ENV_FILEPATH, DefaultData } from '../../common'
 
 const ROOT_DIR = path.resolve('./').replace ( /\/node_modules\/.*/, '' )
@@ -10,11 +11,14 @@ const ROOT_DIR = path.resolve('./').replace ( /\/node_modules\/.*/, '' )
 export class NodeEnvProvider<T> extends EnvProvider<T> {
 
   protected resolveEnvFile ():string {
-    return this.filepath || ENV_FILEPATH
+    console.log('KIO_NG2_PROJECT', process.env.KIO_NG2_PROJECT)
+    console.log('process.cwd()', process.cwd())
+    return projectConfigFile(process.env.KIO_NG2_PROJECT || process.cwd())
   }
 
   protected readEnvFile ():Observable<string> {
     const envFilepath = this.resolveEnvFile ()
+    console.log('read env file at "%s"', envFilepath )
     return Observable.fromPromise(new Promise((resolve,reject)=>{
       fs.readFile ( envFilepath, 'utf8', ( error, content ) => {
         if ( error )
