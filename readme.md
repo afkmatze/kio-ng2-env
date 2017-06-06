@@ -3,6 +3,16 @@
 
 project environment module to use in browser and backend
 
+## Common
+
+### Store
+
+Environment data store
+
+(EnvStore)[./src/common/store/store.class.ts]
+
+
+
 ### Node
 
 #### storage

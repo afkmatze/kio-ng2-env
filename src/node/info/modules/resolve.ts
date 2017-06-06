@@ -85,7 +85,7 @@ export const kioModulesAtPath = ( modulesPath:string ) => {
         .map ( fromPath )
 }
 
-export const kioModules = ( ) => {
+export const kioModules = ( ):Observable<ModuleInfo> => {
   return modulePaths()
     //.map ( logMap('existing path') )
     .mergeMap ( 

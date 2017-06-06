@@ -1,3 +1,7 @@
+/**
+ * kio-ng2-env for browser
+ * @module kio-ng2-env/browser
+ */
 import { BrowserEnvProvider } from './store/provider.class'
 import { EnvStore, Project } from '../common'
 import { Observable } from 'rxjs'

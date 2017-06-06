@@ -1,3 +1,8 @@
+/**
+ * EnvStore module
+ * @module EnvStore 
+ */
+
 import { Observable } from 'rxjs'
 import { EnvProvider, DefaultData } from './provider.class'
 import * as rxfs from 'rxfs'

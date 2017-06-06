@@ -7,7 +7,7 @@ import {
 
 import { env, project, createStore, createProvider, EnvStore, EnvProvider, Project } from './'
 
-const projectRoot = process.env.KIO_NG2_PROJECT 
+const projectRoot = process.env.KIO_NG2_PROJECT || path.resolve('./test-parent')
 
 const projectEnvFile = path.join(projectRoot,'next-digitorial.json')
 const TEST_PROVIDER = createProvider(projectEnvFile)
@@ -22,14 +22,21 @@ describe('Test store',function(){
       it('exists',()=>{
         expect(TEST_PROVIDER).to.be.instanceOf(EnvProvider)
       })
+    })
 
-      it('has config file from args',()=>{
-        expect(TEST_PROVIDER.filepath).to.be.equal(projectEnvFile)
+    describe('project info',()=>{
+
+      it('reads test parent project',()=>{
+
+        return project(projectRoot).toPromise().then ( projectInfo => {
+          expect(projectInfo).to.contain.keys('name','rootModule','lastBuild')
+        } )
+
       })
 
     })
     
-    describe('store',function(){
+    describe(`store for "${projectRoot}"`,function(){
 
       this.timeout(10 * 1000)
 
@@ -37,23 +44,25 @@ describe('Test store',function(){
        expect(TEST_STORE).to.be.instanceOf(EnvStore)
      })
 
-     describe('reads',()=>{
+     xdescribe('reads',()=>{
        let testReadStore:EnvStore<Project>
        beforeEach((done)=> {
-         env(projectRoot).subscribe ( store => {
+         const storeSource = env(projectRoot)
+         storeSource.subscribe ( store => {
+           console.log('project store', store)
            testReadStore = store
          },done,done)
        })
          
-       xit('is test store',()=>{
-         expect(testReadStore).to.be.equal(TEST_STORE)
+       it('is instance of EnvStore',()=>{
+         expect(testReadStore).to.be.instanceOf(EnvStore)
        })
          
-       it('has key "rootModule"',()=>{
+       xit('has key "rootModule"',()=>{
          expect(testReadStore.hasKey('rootModule')).to.be.equal(true)
        })
                   
-       it('has key "components"',()=>{
+       xit('has key "components"',()=>{
          const components:NamedComponent[] = testReadStore.get('components')
          expect(components).to.be.instanceOf(Array)
          components.forEach((component,idx) => {
@@ -61,15 +70,15 @@ describe('Test store',function(){
          })
        })
          
-       it('has key "lastBuild"',()=>{
+       xit('has key "lastBuild"',()=>{
          expect(testReadStore.hasKey('lastBuild')).to.be.equal(true)
        })
          
-       it('has key "name"',()=>{
+       xit('has key "name"',()=>{
          expect(testReadStore.hasKey('name')).to.be.equal(true)
        })
 
-       it('writes',()=>{
+       xit('writes',()=>{
          return testReadStore.save().toPromise()
            .then ( success => {
              expect(success).to.be.equal(true)
