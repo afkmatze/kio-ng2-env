@@ -1,10 +1,14 @@
+/**
+ * kio-ng2-env for node
+ * @module kio-ng2-env/node
+ */
 import { Observable } from 'rxjs'
 import * as path from 'path'
-import { NodeEnvProvider } from './store/provider.class'
+import { NodeEnvProvider } from './store/provider.node.class'
 import { 
   EnvStore, Machine, Branch, 
   Repository, CommitShort, Commit,
-  Project, ProjectInfo, 
+  Project, ProjectInfo, ProjectPath,
   BuildInfo,
   RepositoryInfo,
   DefaultData,
@@ -16,16 +20,19 @@ export * from '../common'
 //import { updateProject } from './actions/updateInfo'
 
 export * from './project'
-import { project } from './project'
+import { project, projectPath } from './project'
 
 import { git, os, modules, update } from './info'
 
 export let globalStore
 
-export const createProvider = <T>(filepath?:string):NodeEnvProvider<T> => new NodeEnvProvider<T>(filepath)
-export const createStore = <T>(defaultData?:T|Observable<T>):EnvStore<T> => {
-  const filepath = path.join(modules.resolve.rootPath(),modules.resolve.rootModule().name+'.json')
-  return new EnvStore<T>(createProvider(filepath),defaultData)
+export const createProvider = (filepath:string):NodeEnvProvider<Project> => new NodeEnvProvider(filepath)
+
+//export const createStore = (defaultData?:Project|Observable<Project>):EnvStore<Project> => {
+export const createStore = (projectData?:Project):EnvStore<Project> => {
+  const filepath = projectPath(projectData)(ProjectPath.envFile)
+  const provider = createProvider(filepath)
+  return new EnvStore<Project>(provider,projectData)
 }
 
 
@@ -37,6 +44,10 @@ export const env = ( projectPath:string=modules.resolve.rootPath() ):Observable<
 
   return project(projectPath)
         .flatMap ( projectData => {
+          console.log('create env with project data', projectData )
           return createStore(projectData).load()
         } )
 }
+
+
+export default env

@@ -8,7 +8,7 @@ export declare class GitRepository implements RepositoryLocation {
     readonly filepath: string;
     readonly remotes: Remote[];
     readonly branches: Branch[];
-    readRemotes(): Observable<RemoteInfo<RemoteType>> | Observable<Remote>;
+    readRemotes(): Observable<Remote> | Observable<RemoteInfo<RemoteType>>;
     readBranches(): Observable<Branch>;
     readCommits(branch?: string | Branch): Observable<CommitShort>;
 }

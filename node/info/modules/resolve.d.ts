@@ -17,5 +17,5 @@ export declare const printModuleTree: (mod?: any, depth?: number) => void;
 export declare const modulePathFrom: (mod: NodeModule, rootModule?: NodeModule, path?: NodeModule[]) => NodeModule[];
 export declare const nodeRootModule: (mod?: NodeModule) => any;
 export declare const modulePaths: () => Observable<string>;
-export declare const kioModulesAtPath: (modulesPath: string) => Observable<ModuleInfo>;
+export declare const kioModulesAtPath: (modulesPath: string) => any;
 export declare const kioModules: () => Observable<ModuleInfo>;

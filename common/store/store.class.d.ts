@@ -1,3 +1,7 @@
+/**
+ * EnvStore module
+ * @module EnvStore
+ */
 import { Observable } from 'rxjs';
 import { EnvProvider } from './provider.class';
 export declare type PartialData<T> = {

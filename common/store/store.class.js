@@ -1,4 +1,8 @@
 "use strict";
+/**
+ * EnvStore module
+ * @module EnvStore
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const rxjs_1 = require("rxjs");
 const project_1 = require("../project");

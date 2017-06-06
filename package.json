@@ -9,7 +9,7 @@
     "kio-env-build-inc": "./bin/inc-build.js"
   },
   "scripts": {
-    "test": "ts-mocha ./src/**/*.spec.ts",
+    "test": "npm run node:test:store",
     "test:watch": "./scripts/watch.sh test",
     "postinstall": "./scripts/postinstall.sh",
     "prestart": "npm run build",
@@ -18,6 +18,7 @@
     "lint": "tslint ./src/**/*.ts ./test/**/*.ts",
     "version": "npm run build:release",
     "postversion": "git push && git push --tags",
+    "prebuild:release": "npm test && npm run typedoc",
     "build:release": "NODE_ENV=production npm run tsc:release",
     "build:release:watch": "./scripts/watch.sh build:release",
     "build:package": "NODE_ENV=package npm run build",
@@ -29,7 +30,16 @@
     "node:test:watch": "./scripts/watch.sh node:test",
     "node:test:env": "ts-mocha ./src/node/node.spec.ts",
     "node:test:env:watch": "./scripts/watch.sh node:test:env",
-    "browser:test": "karma start ./karma.browser.js"
+    "node:test:driver": "ts-mocha ./src/node/store/driver/**/*.spec.ts",
+    "node:test:driver:watch": "./scripts/watch.sh node:test:driver",
+    "node:test:store": "ts-mocha ./src/node/store/**/*.spec.ts",
+    "node:test:store:watch": "./scripts/watch.sh node:test:store",
+    "browser:test": "karma start ./karma.browser.js",
+    "pretypedoc": "rm -rf ./doc",
+    "typedoc:browser": "typedoc --name kio-ng2-env:browser --exclude *.spec.ts --out doc ./src/browser",
+    "typedoc": "typedoc --name kio-ng2-env --options typedoc.json --tsconfig ./tsconfig.release.json --exclude '**/*.spec.ts' ./src",
+    "typedoc:node": "typedoc --name kio-ng2-env --options typedoc.json --tsconfig ./tsconfig.release.json --exclude '**/*.spec.ts' ./src",
+    "typedoc:node:watch": "./scripts/watch.sh typedoc:node"
   },
   "repository": {
     "type": "git",
@@ -40,7 +50,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/chai": "^3.5.2",
-    "@types/jasmine": "^2.5.47",
+    "@types/jasmine": "^2.5.51",
     "@types/mocha": "^2.2.41",
     "chai": "^3.5.0",
     "jasmine": "^2.6.0",
@@ -52,17 +62,19 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-mocha": "^1.3.0",
     "karma-spec-reporter": "0.0.31",
-    "karma-typescript": "^3.0.1",
+    "karma-typescript": "^3.0.3",
     "karma-typescript-preprocessor": "^0.3.1",
-    "mocha": "^3.3.0",
+    "mocha": "^3.4.2",
     "nodemon": "^1.11.0",
     "ts-mocha": "^1.0.3",
     "ts-node": "^3.0.4",
-    "tslint": "^5.2.0",
-    "typescript": "^2.3.2"
+    "tslint": "^5.4.2",
+    "typedoc": "^0.7.1",
+    "typedoc-markdown-theme": "0.0.4",
+    "typescript": "^2.3.4"
   },
   "dependencies": {
-    "@types/node": "^7.0.18",
+    "@types/node": "^7.0.27",
     "kio-ng2-component-routing": "git+https://github.com/afkmatze/kio-ng2-component-routing.git",
     "rx-node": "^1.0.2",
     "rxfs": "github:afkmatze/rxfs",

@@ -20,7 +20,7 @@ build_and_copy(){
   mkdir -p "${PROJECT_BUILD}"
   tsc -p "${TS_CONFIG}"
   scp -r "${PROJECT_BUILD}/" "${TEST_PARENT_MODULE}"
-  mv ${PROJECT_BUILD}/* .
+  mv "${PROJECT_BUILD}"/* .
   rm -rf "${PROJECT_BUILD}"
 }
 
