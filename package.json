@@ -64,9 +64,9 @@
   },
   "dependencies": {
     "@types/node": "^7.0.18",
+    "rxjs": "^5.3.1",
     "kio-ng2-component-routing": "github:afkmatze/kio-ng2-component-routing#digit-bgr",
-    "rx-node": "^1.0.2",
-    "rxfs": "github:afkmatze/rxfs",
-    "rxshell": "github:afkmatze/rxshell"
+    "rxfs": "github:afkmatze/rxfs#digit-bgr",
+    "rxshell": "github:afkmatze/rxshell#digit-bgr"
   }
 }
