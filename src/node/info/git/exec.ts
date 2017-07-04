@@ -8,11 +8,17 @@ import {
 
 const execGit = ( commandArgs:string, cwd:string ):Observable<string> => {
   return exec (`git ${commandArgs}`).map ( data => {
-    return data.stdout.toString('utf8')
+    return data.stdout
   } )
+  .map ( (data:any) => data instanceof Buffer ? data.toString('utf8') : data )
 }
 
 const parseBranch = ( branchString:string ):Branch => {
+  if ( 'string' !== typeof branchString )
+  {
+    console.log(branchString)
+    throw Error(`branch string must be a string value. got ${typeof branchString}`)
+  }
   const [ _, flag, name, commit, message] = branchString.match ( /(^\*)?\ *(\w+)\ *(\w+)\ (.+)/ )
     return {
       current: flag === '*',

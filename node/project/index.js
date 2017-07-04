@@ -3,13 +3,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const path = require("path");
 const info_1 = require("../info");
 exports.getRepositoryInfo = (cwd) => {
-    return info_1.git.branches(cwd)
+    return info_1.git.branches(cwd).map(b => {
+        return b;
+    })
         .filter(branch => branch.current === true)
         .flatMap(branch => {
         return info_1.git.commits(cwd).toArray().map(commits => {
             return {
                 branch,
-                commit: commits.find(commit => commit.hash === branch.hash)
+                commit: commits.find(commit => commit.hash === branch.commit)
             };
         });
     });

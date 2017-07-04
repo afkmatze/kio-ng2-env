@@ -9,13 +9,13 @@ const common_1 = require("../../common");
 const ROOT_DIR = path.resolve('./').replace(/\/node_modules\/.*/, '');
 class NodeEnvProvider extends common_1.EnvProvider {
     resolveEnvFile() {
-        console.log('KIO_NG2_PROJECT', process.env.KIO_NG2_PROJECT);
-        console.log('process.cwd()', process.cwd());
+        //console.log('KIO_NG2_PROJECT', process.env.KIO_NG2_PROJECT)
+        //console.log('process.cwd()', process.cwd())
         return project_1.projectConfigFile(process.env.KIO_NG2_PROJECT || process.cwd());
     }
     readEnvFile() {
         const envFilepath = this.resolveEnvFile();
-        console.log('read env file at "%s"', envFilepath);
+        //console.log('read env file at "%s"', envFilepath )
         return rxjs_1.Observable.fromPromise(new Promise((resolve, reject) => {
             fs.readFile(envFilepath, 'utf8', (error, content) => {
                 if (error) {
