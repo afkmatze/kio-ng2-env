@@ -7,6 +7,10 @@ import {
 
 import { env, project, createStore, createProvider, EnvStore, EnvProvider, Project } from './'
 
+if ( !process.env.KIO_NG2_PROJECT )
+{
+  throw Error(`Please set environment variable KIO_NG2_PROJECT to a valid digitorial path`)
+}
 const projectRoot = process.env.KIO_NG2_PROJECT 
 
 const projectEnvFile = path.join(projectRoot,'next-digitorial.json')
@@ -45,8 +49,8 @@ describe('Test store',function(){
          },done,done)
        })
          
-       xit('is test store',()=>{
-         expect(testReadStore).to.be.equal(TEST_STORE)
+       it('is test store',()=>{
+         expect(testReadStore).to.exist
        })
          
        it('has key "rootModule"',()=>{

@@ -68,7 +68,7 @@ exports.modulePaths = () => {
         .filter(p => p.pathExists === true).map(p => p.filepath);
 };
 exports.kioModulesAtPath = (modulesPath) => {
-    return rxshell_1.find(['.', '-maxdepth', '1'], modulesPath).map(s => s.stdout.toString('utf8').substr(2))
+    return rxshell_1.find(['.', '-maxdepth', '1'], modulesPath).map(s => s.substr(2))
         .filter(filepath => /^kio\-ng2/.test(path.basename(filepath))).distinct()
         .map(dirname => path.join(modulesPath, dirname))
         .map(module_1.fromPath);

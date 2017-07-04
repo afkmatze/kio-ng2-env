@@ -35,11 +35,11 @@ export const api = {
 
 export const env = ( projectPath:string=modules.resolve.rootPath() ):Observable<EnvStore<Project>> => {
 
-  return project(projectPath)
-        .flatMap ( projectData => {
-          return createStore(projectData).load()
+  return project(projectPath).map(createStore)
+        .flatMap ( store => {
+          return store.load()
         } )
         .flatMap ( store => {
-          return store.save().map ( s => store )
+          return store.save().mapTo(store)
         } )
 }

@@ -9,7 +9,7 @@
     "kio-env-build-inc": "./bin/inc-build.js"
   },
   "scripts": {
-    "test": "ts-mocha ./src/**/*.spec.ts",
+    "test": "npm run node:test && npm run browser:test",
     "test:watch": "./scripts/watch.sh test",
     "postinstall": "./scripts/postinstall.sh",
     "prestart": "npm run build",
@@ -29,6 +29,8 @@
     "node:test:watch": "./scripts/watch.sh node:test",
     "node:test:env": "ts-mocha ./src/node/node.spec.ts",
     "node:test:env:watch": "./scripts/watch.sh node:test:env",
+    "node:test:git": "ts-mocha ./src/node/info/git/git.spec.ts",
+    "node:test:git:watch": "./scripts/watch.sh node:test:git",
     "browser:test": "karma start ./karma.browser.js"
   },
   "repository": {
@@ -60,12 +62,11 @@
     "ts-mocha": "^1.0.3",
     "ts-node": "^3.0.4",
     "tslint": "^5.2.0",
-    "typescript": "^2.3.2"
+    "typescript": "2.3.4"
   },
   "dependencies": {
     "@types/node": "^7.0.18",
     "kio-ng2-component-routing": "github:afkmatze/kio-ng2-component-routing",
-    "rx-node": "^1.0.2",
     "rxfs": "github:afkmatze/rxfs",
     "rxshell": "github:afkmatze/rxshell"
   }

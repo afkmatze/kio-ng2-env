@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const rxfs_1 = require("rxfs");
+const rxshell_1 = require("rxshell");
 const common_1 = require("../../../common");
 const execGit = (commandArgs, cwd) => {
-    return rxfs_1.exec(`git ${commandArgs}`, { cwd }).map(row => row.stdout.toString('utf8'));
+    return rxshell_1.exec(`git ${commandArgs}`).map(data => data.stdout);
 };
 const parseBranch = (branchString) => {
     const [_, flag, name, hash, message] = branchString.match(/(^\*)?\ *(\w+)\ *(\w+)\ (.+)/);
