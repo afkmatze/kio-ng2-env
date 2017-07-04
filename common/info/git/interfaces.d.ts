@@ -6,7 +6,9 @@ export interface CommitShort {
 export interface Commit extends CommitShort {
     author: string;
 }
-export interface Branch extends CommitShort {
+export interface Branch {
+    commit: string;
+    message: string;
     name: string;
     current: boolean;
 }

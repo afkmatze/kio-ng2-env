@@ -20,12 +20,12 @@ exports.api = {
     git: info_1.git, os: info_1.os, modules: info_1.modules //, updateProject
 };
 exports.env = (projectPath = info_1.modules.resolve.rootPath()) => {
-    return project_1.project(projectPath)
-        .flatMap(projectData => {
-        return exports.createStore(projectData).load();
+    return project_1.project(projectPath).map(exports.createStore)
+        .flatMap(store => {
+        return store.load();
     })
         .flatMap(store => {
-        return store.save().map(s => store);
+        return store.save().mapTo(store);
     });
 };
 //# sourceMappingURL=index.js.map

@@ -35,7 +35,7 @@ exports.rootPath = () => {
 };
 exports.rootModule = (defaultPath) => {
     const filepath = defaultPath || exports.rootPath();
-    console.log('rootModule()', filepath);
+    //console.log('rootModule()',filepath)
     return module_1.fromPath(filepath);
 };
 exports.printModuleTree = (mod = exports.nodeRootModule(), depth = 0) => {
@@ -61,14 +61,14 @@ exports.modulePaths = () => {
     const rootModulePath = exports.rootPath();
     const parentModulePaths = [path.join(rootModulePath, 'node_modules')];
     return rxjs_1.Observable.from(parentModulePaths)
-        .flatMap(filepath => rxfs_1.exists(filepath).map(pathExists => ({
+        .flatMap(filepath => rxfs_1.exists(filepath).map((pathExists) => ({
         filepath,
         pathExists
     })))
-        .filter(p => p.pathExists === true).map(p => p.filepath);
+        .filter((p) => p.pathExists === true).map((p) => p.filepath);
 };
 exports.kioModulesAtPath = (modulesPath) => {
-    return rxshell_1.find(['.', '-maxdepth', '1'], modulesPath).map(s => s.substr(2))
+    return rxshell_1.find(['.', '-maxdepth', '1'], modulesPath).map(s => `${s}`.substr(2))
         .filter(filepath => /^kio\-ng2/.test(path.basename(filepath))).distinct()
         .map(dirname => path.join(modulesPath, dirname))
         .map(module_1.fromPath);

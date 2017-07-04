@@ -20,7 +20,7 @@ export const getRepositoryInfo = (cwd:string):Observable<RepositoryInfo> => {
       return git.commits(cwd).toArray().map ( commits => {
         return {
           branch,
-          commit: commits.find(commit => commit.hash === branch.hash )
+          commit: commits.find(commit => commit.hash === branch.commit )
         }
 
       } )

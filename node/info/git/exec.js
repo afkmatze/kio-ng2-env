@@ -3,14 +3,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const rxshell_1 = require("rxshell");
 const common_1 = require("../../../common");
 const execGit = (commandArgs, cwd) => {
-    return rxshell_1.exec(`git ${commandArgs}`).map(data => data.stdout);
+    return rxshell_1.exec(`git ${commandArgs}`).map(data => {
+        return data.stdout;
+    })
+        .map((data) => data instanceof Buffer ? data.toString('utf8') : data);
 };
 const parseBranch = (branchString) => {
-    const [_, flag, name, hash, message] = branchString.match(/(^\*)?\ *(\w+)\ *(\w+)\ (.+)/);
+    if ('string' !== typeof branchString) {
+        console.log(branchString);
+        throw Error(`branch string must be a string value. got ${typeof branchString}`);
+    }
+    const [_, flag, name, commit, message] = branchString.match(/(^\*)?\ *(\w+)\ *(\w+)\ (.+)/);
     return {
         current: flag === '*',
         name,
-        hash,
+        commit,
         message
     };
 };
@@ -23,7 +30,9 @@ const parseRemote = (remoteString) => {
     };
 };
 exports.remotes = (cwd) => {
-    return execGit('remote -v', cwd).map(parseRemote)
+    return execGit('remote -v', cwd).map(result => {
+        return parseRemote(result);
+    })
         .map(remote => ({
         name: remote.name,
         url: remote.url
