@@ -36,7 +36,7 @@ export const rootPath = ( ):string => {
 
 export const rootModule = ( defaultPath?:string ):ModuleInfo => {
   const filepath = defaultPath || rootPath()
-  console.log('rootModule()',filepath)
+  //console.log('rootModule()',filepath)
   return fromPath(filepath)
 }
 
@@ -69,16 +69,16 @@ export const modulePaths = ( ) => {
   const rootModulePath = rootPath()
   const parentModulePaths:string[] = [path.join(rootModulePath,'node_modules')]
   return Observable.from(parentModulePaths)
-      .flatMap ( filepath => exists(filepath).map ( pathExists => ({
+      .flatMap ( filepath => exists(filepath).map ( (pathExists) => ({
         filepath ,
         pathExists
       }) ) )
-      .filter ( p => p.pathExists === true ).map ( p => p.filepath )
+      .filter ( (p:any) => p.pathExists === true ).map ( (p):string => p.filepath )
       
 }
 
-export const kioModulesAtPath = ( modulesPath:string ) => {
-  return find(['.','-maxdepth','1'],modulesPath).map ( s => s.stdout.toString('utf8').substr(2) )
+export const kioModulesAtPath = ( modulesPath:string ):Observable<ModuleInfo> => {
+  return find(['.','-maxdepth','1'],modulesPath).map ( s => `${s}`.substr(2) )
         //.map ( logMap('modules') )
         .filter ( filepath => /^kio\-ng2/.test(path.basename(filepath)) ).distinct()
         .map ( dirname => path.join(modulesPath,dirname) )

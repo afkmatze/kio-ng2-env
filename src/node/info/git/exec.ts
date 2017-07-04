@@ -1,21 +1,23 @@
 import { Observable } from 'rxjs'
-import { exec, ExecData } from 'rxfs'
+import { exec } from 'rxshell'
 import { 
   Commit, CommitShort, Branch, 
   RemoteType,
   RemoteInfo, Remote, RemoteAbstract
 } from '../../../common'
 
-const execGit = ( commandArgs:string, cwd:string ) => {
-  return exec (`git ${commandArgs}`,{cwd}).map ( row => row.stdout.toString('utf8') )
+const execGit = ( commandArgs:string, cwd:string ):Observable<string> => {
+  return exec (`git ${commandArgs}`).map ( data => {
+    return data.stdout.toString('utf8')
+  } )
 }
 
 const parseBranch = ( branchString:string ):Branch => {
-  const [ _, flag, name, hash, message] = branchString.match ( /(^\*)?\ *(\w+)\ *(\w+)\ (.+)/ )
+  const [ _, flag, name, commit, message] = branchString.match ( /(^\*)?\ *(\w+)\ *(\w+)\ (.+)/ )
     return {
       current: flag === '*',
       name ,
-      hash ,
+      commit ,
       message
     }
 }
@@ -30,7 +32,9 @@ const parseRemote = <T extends RemoteType>( remoteString:string ):RemoteInfo<T> 
 }
 
 export const remotes = ( cwd:string ):Observable<RemoteAbstract> => {
-  return execGit ( 'remote -v', cwd ).map ( parseRemote )
+  return execGit ( 'remote -v', cwd ).map ( result => {
+    return parseRemote(result)
+  } )
     .map ( remote => ({
       name: remote.name,
       url: remote.url

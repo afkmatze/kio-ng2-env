@@ -12,7 +12,9 @@ import {
 import { modules, os, git } from '../info'
 
 export const getRepositoryInfo = (cwd:string):Observable<RepositoryInfo> => {
-  return git.branches(cwd)
+  return git.branches(cwd).map ( b => {
+    return b
+  } )
     .filter(branch => branch.current===true)
     .flatMap( branch => {
       return git.commits(cwd).toArray().map ( commits => {
@@ -48,6 +50,7 @@ export const project = ( projectPath:string ):Observable<Project> => {
   const rootModule = modules.resolve.fromPath(projectPath)
 
   return getBuildInfo(projectPath).flatMap ( lastBuild => {
+
     return modules.resolve.kioModules().toArray().map ( kioModules => {
       return {
         name: rootModule.name,
