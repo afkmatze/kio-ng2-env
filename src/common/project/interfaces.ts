@@ -1,4 +1,4 @@
-import { NamedComponent } from 'kio-ng2-component-routing'
+import { NamedComponent } from 'kio-ng2'
 
 import { 
   Machine, ModuleInfo, RepositoryType, RootModuleInfo,

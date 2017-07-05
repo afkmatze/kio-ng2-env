@@ -44,6 +44,10 @@ class NodeEnvProvider extends common_1.EnvProvider {
     }
     read() {
         return this.readEnvFile()
+            .catch(error => {
+            console.warn(`Could not load env file at "${this.resolveEnvFile()}"`);
+            return rxjs_1.Observable.throw(error);
+        })
             .map(fileContent => {
             return JSON.parse(fileContent);
         })
@@ -71,14 +75,14 @@ class NodeEnvProvider extends common_1.EnvProvider {
             return this.create(rxjs_1.Observable.fromPromise(defaultData));
         }
         const data = JSON.stringify(defaultData, null, '  ');
-        //console.log('write data \n\x1b[2m%s\x1b[0m',data)
         return rxfs.writeFile(this.resolveEnvFile(), rxjs_1.Observable.of(new Buffer(data)));
     }
     write(data) {
         return this.writeEnvFile(data).flatMap(success => {
-            if (this.resolveEnvFile() !== common_1.ENV_FILEPATH) {
-                return this.writeEnvFile(data, common_1.ENV_FILEPATH);
-            }
+            /*if ( this.resolveEnvFile() !== ENV_FILEPATH )
+            {
+              return this.writeEnvFile(data,ENV_FILEPATH)
+            }*/
             return rxjs_1.Observable.of(success);
         });
     }

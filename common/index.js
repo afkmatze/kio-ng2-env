@@ -9,5 +9,5 @@ exports.EnvStore = store_class_1.EnvStore;
 const provider_class_1 = require("./store/provider.class");
 exports.EnvProvider = provider_class_1.EnvProvider;
 __export(require("./project"));
-exports.ENV_FILEPATH = './kio-env.json';
+//export const ENV_FILEPATH = './kio-env.json' 
 //# sourceMappingURL=index.js.map
