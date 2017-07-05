@@ -65,7 +65,7 @@
     "typescript": "2.3.4"
   },
   "dependencies": {
-    "@types/node": "^7.0.18",
+    "@types/node": "^7.0.33",
     "kio-ng2-component-routing": "github:afkmatze/kio-ng2-component-routing",
     "rxfs": "github:afkmatze/rxfs",
     "rxshell": "github:afkmatze/rxshell"
