@@ -20,7 +20,8 @@ exports.api = {
     git: info_1.git, os: info_1.os, modules: info_1.modules //, updateProject
 };
 exports.env = (projectPath = info_1.modules.resolve.rootPath()) => {
-    return project_1.project(projectPath).map(exports.createStore)
+    return project_1.project(projectPath)
+        .map(exports.createStore)
         .flatMap(store => {
         return store.load();
     })

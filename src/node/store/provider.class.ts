@@ -19,17 +19,12 @@ export class NodeEnvProvider<T> extends EnvProvider<T> {
   protected readEnvFile ():Observable<string> {
     const envFilepath = this.resolveEnvFile ()
     //console.log('read env file at "%s"', envFilepath )
-    return Observable.fromPromise(new Promise((resolve,reject)=>{
-      fs.readFile ( envFilepath, 'utf8', ( error, content ) => {
-        if ( error )
-        {
-          reject ( error )
-        }
-        else {
-          resolve ( content )
-        }
+    return rxfs.readFile(envFilepath,'utf8')
+      .map ( (value:string) => {
+        return `${value}`
       } )
-    }))
+      .toArray()
+      .map ( rows => rows.join('\n') )
   }
 
   protected toJSON (data:T) {

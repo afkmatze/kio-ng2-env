@@ -21,6 +21,14 @@ class EnvStore {
         this.env = env;
         this.defaultData = defaultData;
     }
+    get data() {
+        if (!this._data)
+            throw Error(`Tried to access data of empty store.`);
+        return this._data;
+    }
+    set data(value) {
+        this._data = value;
+    }
     getDefaultData() {
         if (this.defaultData instanceof rxjs_1.Observable) {
             return this.defaultData.map(defaultData => {

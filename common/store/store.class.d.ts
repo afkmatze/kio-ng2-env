@@ -12,6 +12,7 @@ export declare class EnvStore<T extends EnvData> {
     private env;
     protected defaultData: T | Observable<T>;
     constructor(env: EnvProvider<T>, defaultData?: T | Observable<T>);
+    private _data;
     protected data: T;
     getDefaultData(): Observable<T>;
     ensureExistance(): Observable<boolean>;

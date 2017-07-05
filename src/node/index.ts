@@ -35,7 +35,8 @@ export const api = {
 
 export const env = ( projectPath:string=modules.resolve.rootPath() ):Observable<EnvStore<Project>> => {
 
-  return project(projectPath).map(createStore)
+  return project(projectPath)
+        .map(createStore)
         .flatMap ( store => {
           return store.load()
         } )

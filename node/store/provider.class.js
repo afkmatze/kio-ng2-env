@@ -16,16 +16,12 @@ class NodeEnvProvider extends common_1.EnvProvider {
     readEnvFile() {
         const envFilepath = this.resolveEnvFile();
         //console.log('read env file at "%s"', envFilepath )
-        return rxjs_1.Observable.fromPromise(new Promise((resolve, reject) => {
-            fs.readFile(envFilepath, 'utf8', (error, content) => {
-                if (error) {
-                    reject(error);
-                }
-                else {
-                    resolve(content);
-                }
-            });
-        }));
+        return rxfs.readFile(envFilepath, 'utf8')
+            .map((value) => {
+            return `${value}`;
+        })
+            .toArray()
+            .map(rows => rows.join('\n'));
     }
     toJSON(data) {
         return JSON.stringify(data, null, '  ');
