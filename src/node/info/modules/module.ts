@@ -21,6 +21,7 @@ export const fromPath = ( filepath:string ):ModuleInfo => {
     name: pckg.name,
     filepath: moduleDir,
     version: pckg.version,
-    repository: pckg.repository
+    repository: pckg.repository,
+    kio: pckg.kio
   }
 }

@@ -1,13 +1,13 @@
 {
-  "name": "digit-bgr",
+  "name": "digit-bma",
   "rootModule": {
-    "name": "digit-bgr",
-    "filepath": "/Users/tEErohr/Documents/kio/angular2/digit/digit-bgr",
+    "name": "digit-bma",
+    "filepath": "/Users/tEErohr/Documents/kio/angular2/digit/digit-dev/digit-bma",
     "version": "0.0.0",
     "children": [
       {
         "name": "kio-ng2",
-        "filepath": "/Users/tEErohr/Documents/kio/angular2/digit/digit-bgr/node_modules/kio-ng2",
+        "filepath": "/Users/tEErohr/Documents/kio/angular2/digit/digit-dev/modules/kio-ng2-env/node_modules/kio-ng2",
         "version": "0.0.1",
         "repository": {
           "type": "git",
@@ -16,34 +16,16 @@
       },
       {
         "name": "kio-ng2-component-routing",
-        "filepath": "/Users/tEErohr/Documents/kio/angular2/digit/digit-bgr/node_modules/kio-ng2-component-routing",
-        "version": "0.0.4"
-      },
-      {
-        "name": "kio-ng2-env",
-        "filepath": "/Users/tEErohr/Documents/kio/angular2/digit/digit-bgr/node_modules/kio-ng2-env",
-        "version": "0.0.4",
-        "repository": {
-          "type": "git",
-          "url": "git@github.com:afkmatze/kio-ng2-env.git"
-        }
-      },
-      {
-        "name": "kio-ng2-structure",
-        "filepath": "/Users/tEErohr/Documents/kio/angular2/digit/digit-bgr/node_modules/kio-ng2-structure",
-        "version": "0.0.0",
-        "repository": {
-          "type": "git",
-          "url": "git+https://github.com/afkmatze/kio-ng2-structure.git"
-        }
+        "filepath": "/Users/tEErohr/Documents/kio/angular2/digit/digit-dev/modules/kio-ng2-env/node_modules/kio-ng2-component-routing",
+        "version": "0.0.6"
       }
     ]
   },
   "lastBuild": {
     "buildCount": 0,
-    "buildTime": "2017-05-18T07:49:44.984Z",
+    "buildTime": "2017-07-05T15:12:58.419Z",
     "buildMachine": {
-      "release": "16.5.0",
+      "release": "16.6.0",
       "type": "Darwin",
       "username": "tEErohr",
       "arch": "x64",
@@ -53,336 +35,14 @@
       "branch": {
         "current": true,
         "name": "master",
-        "hash": "92e3e9e",
-        "message": "update templates"
+        "commit": "923214c",
+        "message": "chore: initial commit from @angular/cli"
       },
       "commit": {
-        "hash": "92e3e9e",
-        "message": "update templates"
+        "hash": "923214c",
+        "message": "chore: initial commit from @angular/cli"
       }
     }
   },
-  "components": [
-    {
-      "type": "fragment",
-      "name": "AudioPlayer",
-      "modifiers": [
-        "audio"
-      ],
-      "childTypes": [
-        "txt",
-        "src"
-      ]
-    },
-    {
-      "type": "fragment",
-      "name": "BgrChapter6",
-      "childTypes": [
-        "fragment",
-        "fragment",
-        "txt",
-        "txt",
-        "txt",
-        "fragment"
-      ],
-      "modifiers": []
-    },
-    {
-      "type": "fragment",
-      "name": "BigPic",
-      "childTypes": {
-        "contains": [
-          "txt",
-          "txt",
-          "src",
-          "src"
-        ]
-      },
-      "modifiers": [
-        "big-pic"
-      ]
-    },
-    {
-      "type": "fragment",
-      "name": "PanelChapter",
-      "childTypes": [
-        "txt",
-        "txt",
-        "fragment",
-        "txt"
-      ],
-      "modifiers": []
-    },
-    {
-      "type": "fragment",
-      "name": "Hint",
-      "childTypes": [
-        "txt",
-        "txt",
-        "fragment",
-        "fragment",
-        "txt",
-        "txt",
-        "txt"
-      ],
-      "modifiers": []
-    },
-    {
-      "type": "fragment",
-      "name": "LabeledImage",
-      "modifiers": [],
-      "childTypes": [
-        "src",
-        "txt",
-        "txt"
-      ]
-    },
-    {
-      "type": "fragment",
-      "name": "LabeledImageWithDescription",
-      "childTypes": [
-        "src",
-        "txt",
-        "txt",
-        "txt"
-      ],
-      "modifiers": []
-    },
-    {
-      "type": "fragment",
-      "name": "ImageGallery",
-      "childTypes": {
-        "contains": [
-          "fragment"
-        ]
-      },
-      "modifiers": [
-        "gallery"
-      ]
-    },
-    {
-      "type": "fragment",
-      "name": "ImageGalleryWide",
-      "childTypes": {
-        "contains": [
-          "fragment"
-        ]
-      },
-      "modifiers": [
-        "gallery",
-        "wide"
-      ]
-    },
-    {
-      "type": "fragment",
-      "name": "LabeledImageWithMorphing",
-      "childTypes": {
-        "contains": [
-          "txt",
-          "txt",
-          "src"
-        ]
-      },
-      "modifiers": [
-        "morph"
-      ]
-    },
-    {
-      "type": "fragment",
-      "name": "Intro",
-      "childTypes": [
-        "txt",
-        "fragment"
-      ],
-      "modifiers": [
-        "intro"
-      ]
-    },
-    {
-      "type": "fragment",
-      "name": "MetaImages",
-      "modifiers": [
-        "metabox"
-      ],
-      "childTypes": {
-        "contains": [
-          "fragment",
-          "fragment"
-        ]
-      }
-    },
-    {
-      "type": "fragment",
-      "name": "MetaImage",
-      "modifiers": [
-        "metabox"
-      ],
-      "childTypes": [
-        "src",
-        "txt",
-        "txt",
-        "txt"
-      ]
-    },
-    {
-      "type": "fragment",
-      "name": "MetaBoxCore",
-      "modifiers": [
-        "metabox",
-        "core"
-      ],
-      "childTypes": [
-        "txt",
-        "txt"
-      ]
-    },
-    {
-      "type": "fragment",
-      "name": "MetaBox",
-      "modifiers": [
-        "metabox"
-      ],
-      "childTypes": [
-        "txt",
-        "txt"
-      ]
-    },
-    {
-      "type": "fragment",
-      "name": "Nba",
-      "modifiers": {
-        "contains": [
-          "nba"
-        ]
-      },
-      "childTypes": [
-        "txt",
-        "src",
-        "txt",
-        "txt",
-        "txt"
-      ]
-    },
-    {
-      "type": "fragment",
-      "name": "NbaGroup",
-      "modifiers": [
-        "nba"
-      ],
-      "childTypes": {
-        "all": [
-          "fragment"
-        ]
-      }
-    },
-    {
-      "type": "fragment",
-      "name": "Outro",
-      "modifiers": [
-        "outro"
-      ],
-      "childTypes": [
-        "txt"
-      ]
-    },
-    {
-      "type": "fragment",
-      "name": "Quote",
-      "childTypes": [
-        "txt",
-        "txt",
-        "txt"
-      ],
-      "modifiers": [
-        "quote"
-      ]
-    },
-    {
-      "type": "fragment",
-      "name": "Social",
-      "modifiers": [
-        "social"
-      ],
-      "childTypes": [
-        "txt"
-      ]
-    },
-    {
-      "type": "fragment",
-      "name": "Share",
-      "modifiers": [
-        "share"
-      ],
-      "childTypes": [
-        "txt",
-        "txt"
-      ]
-    },
-    {
-      "type": "fragment",
-      "name": "TextAndAudio",
-      "childTypes": [
-        "txt",
-        "fragment"
-      ],
-      "modifiers": [
-        "audio"
-      ]
-    },
-    {
-      "type": "fragment",
-      "name": "SingleColumn",
-      "childTypes": [
-        "txt"
-      ],
-      "modifiers": []
-    },
-    {
-      "type": "fragment",
-      "name": "TwoColumns",
-      "childTypes": [
-        "txt",
-        "txt"
-      ],
-      "modifiers": []
-    },
-    {
-      "type": "fragment",
-      "name": "TwoColumnsAndImage",
-      "modifiers": {
-        "either": [
-          "text-left",
-          "text-right"
-        ]
-      },
-      "childTypes": [
-        "txt",
-        "fragment"
-      ]
-    },
-    {
-      "type": "fragment",
-      "name": "SponsoringPartner",
-      "modifiers": [
-        "sponsor"
-      ],
-      "childTypes": [
-        "txt",
-        "src"
-      ]
-    },
-    {
-      "type": "fragment",
-      "name": "ComparisonSlider",
-      "modifiers": [
-        "comparison"
-      ],
-      "childTypes": [
-        "src",
-        "src",
-        "txt",
-        "txt"
-      ]
-    }
-  ]
+  "components": []
 }

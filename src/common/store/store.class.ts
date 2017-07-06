@@ -35,7 +35,17 @@ export class EnvStore<T extends EnvData> {
   constructor(private env:EnvProvider<T>,protected defaultData?:T|Observable<T>)
   {}
 
-  protected data:T
+  private _data:T
+
+  protected get data():T {
+    if ( !this._data )
+      throw Error(`Tried to access data of empty store.`)
+    return this._data
+  }
+
+  protected set data(value:T) {
+    this._data = value
+  }
 
   getDefaultData():Observable<T>{
     if ( this.defaultData instanceof Observable )
@@ -70,17 +80,20 @@ export class EnvStore<T extends EnvData> {
   }
 
   load(){
-    return this.ensureExistance()
-      .flatMapTo ( this.env.read()
-          .flatMap ( data => {
-            this.data = data
-            if ( !isProject(data) && this.defaultData )
-            {
-              return this.mergeDefault()
-            }
-            return Observable.of(this)
-          } )
-      )
+    return this.env.read()
+      .catch ( error => {
+        if ( this.defaultData instanceof Observable )
+          return this.defaultData
+        return Observable.of(this.defaultData)
+      } )
+      .flatMap ( data => {
+        this.data = data
+        if ( !isProject(data) && this.defaultData )
+        {
+          return this.mergeDefault()
+        }
+        return Observable.of(this)
+      } )
   }
 
   save(){
@@ -94,6 +107,7 @@ export class EnvStore<T extends EnvData> {
   get<P extends keyof T>(key:P):T[P]{
     return this.data[key]
   }
+
 
   hasKey(key:any):key is keyof T {
     return key in this.data

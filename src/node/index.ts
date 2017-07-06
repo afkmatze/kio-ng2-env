@@ -20,6 +20,9 @@ import { project } from './project'
 
 import { git, os, modules, update } from './info'
 
+import { initEnvironment } from './init'
+
+
 export let globalStore
 
 export const createProvider = <T>(filepath?:string):NodeEnvProvider<T> => new NodeEnvProvider<T>(filepath)
@@ -35,11 +38,19 @@ export const api = {
 
 export const env = ( projectPath:string=modules.resolve.rootPath() ):Observable<EnvStore<Project>> => {
 
-  return project(projectPath).map(createStore)
+  return initEnvironment(projectPath).flatMap ( project => {
+    const store = createStore(project)
+    return store.load().mapTo(store)
+  } ).catch ( error => {
+    return Observable.throw ( `kio-ng2-env failed to init environment at "${projectPath}". ${error}` )
+  } )
+
+  /*return project(projectPath)
+        .map(createStore)
         .flatMap ( store => {
           return store.load()
-        } )
-        .flatMap ( store => {
+        } )*/
+       /* .flatMap ( store => {
           return store.save().mapTo(store)
-        } )
+        } )*/
 }

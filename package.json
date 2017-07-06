@@ -56,7 +56,7 @@
     "karma-spec-reporter": "0.0.31",
     "karma-typescript": "^3.0.1",
     "karma-typescript-preprocessor": "^0.3.1",
-    "mocha": "^3.3.0",
+    "mocha": "^3.4.2",
     "nodemon": "^1.11.0",
     "source-map": "^0.5.6",
     "ts-mocha": "^1.0.3",
@@ -66,6 +66,7 @@
   },
   "dependencies": {
     "@types/node": "^7.0.33",
+    "kio-ng2": "github:afkmatze/kio-ng2",
     "kio-ng2-component-routing": "github:afkmatze/kio-ng2-component-routing",
     "rxfs": "github:afkmatze/rxfs",
     "rxshell": "github:afkmatze/rxshell"

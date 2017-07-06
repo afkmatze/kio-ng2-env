@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 //import { RootModuleInfo, ModuleInfo } from '../../common'
-const kio_ng2_component_routing_1 = require("kio-ng2-component-routing");
+const kio_ng2_1 = require("kio-ng2");
 exports.isModuleInfo = (other) => {
     return ('name' in other
         &&
@@ -37,7 +37,7 @@ exports.isProject = (info) => {
         &&
             'lastBuild' in info && exports.isBuildInfo(info.lastBuild)
         &&
-            'components' in info && Array.isArray(info.components) && info.components.every(kio_ng2_component_routing_1.isNamedComponent)
+            'components' in info && Array.isArray(info.components) && info.components.every(kio_ng2_1.isNamedComponent)
         &&
             exports.isProjectInfo(info));
 };

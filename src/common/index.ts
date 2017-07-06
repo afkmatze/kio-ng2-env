@@ -4,4 +4,4 @@ import { EnvProvider, DefaultData } from './store/provider.class'
 export * from './project'
 export { EnvStore, EnvProvider, DefaultData }
 
-export const ENV_FILEPATH = './kio-env.json'
+//export const ENV_FILEPATH = './kio-env.json'

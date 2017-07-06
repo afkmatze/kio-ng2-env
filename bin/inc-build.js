@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
 const path = require('path')
-const { createStore } = require('../node')
-const store = createStore()
+const { env } = require('../')
 
-store.load()
+env().toPromise()
   .then ( store => {
     console.log('store data', store.data)
     store.data.build = (store.data.build || 0) + 1
