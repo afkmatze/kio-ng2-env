@@ -18,13 +18,11 @@ export class NodeEnvProvider<T> extends EnvProvider<T> {
 
   protected readEnvFile ():Observable<string> {
     const envFilepath = this.resolveEnvFile ()
-    //console.log('read env file at "%s"', envFilepath )
-    return rxfs.readFile(envFilepath,'utf8')
-      .map ( (value:string) => {
-        return `${value}`
-      } )
-      .toArray()
-      .map ( rows => rows.join('\n') )
+    return rxfs.exists(envFilepath).flatMap ( exists => {
+      if ( exists )
+        return require(envFilepath)
+      return Observable.throw(Error(`File does not exist at "${envFilepath}".`))
+    } )
   }
 
   protected toJSON (data:T) {
@@ -48,8 +46,7 @@ export class NodeEnvProvider<T> extends EnvProvider<T> {
   read ():Observable<T> {
     return this.readEnvFile()
       .catch ( error => {
-        console.warn ( `Could not load env file at "${this.resolveEnvFile()}"` )
-        return Observable.throw(error)
+        return Observable.throw(`Could not load env file at "${this.resolveEnvFile()}". ${error}`)
       } )
       .map ( fileContent => {
         return JSON.parse ( fileContent )

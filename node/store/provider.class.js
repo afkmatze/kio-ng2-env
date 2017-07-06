@@ -15,13 +15,11 @@ class NodeEnvProvider extends common_1.EnvProvider {
     }
     readEnvFile() {
         const envFilepath = this.resolveEnvFile();
-        //console.log('read env file at "%s"', envFilepath )
-        return rxfs.readFile(envFilepath, 'utf8')
-            .map((value) => {
-            return `${value}`;
-        })
-            .toArray()
-            .map(rows => rows.join('\n'));
+        return rxfs.exists(envFilepath).flatMap(exists => {
+            if (exists)
+                return require(envFilepath);
+            return rxjs_1.Observable.throw(Error(`File does not exist at "${envFilepath}".`));
+        });
     }
     toJSON(data) {
         return JSON.stringify(data, null, '  ');
@@ -41,8 +39,7 @@ class NodeEnvProvider extends common_1.EnvProvider {
     read() {
         return this.readEnvFile()
             .catch(error => {
-            console.warn(`Could not load env file at "${this.resolveEnvFile()}"`);
-            return rxjs_1.Observable.throw(error);
+            return rxjs_1.Observable.throw(`Could not load env file at "${this.resolveEnvFile()}". ${error}`);
         })
             .map(fileContent => {
             return JSON.parse(fileContent);

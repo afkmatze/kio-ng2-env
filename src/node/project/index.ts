@@ -6,7 +6,8 @@ import {
   Project, ProjectInfo, EnvStore, EnvProvider,
   RepositoryInfo, BuildInfo,
   RootModuleInfo,
-  Branch, CommitShort, Commit
+  Branch, CommitShort, Commit,
+  KioFolders
 } from '../../common'
 
 import { modules, os, git } from '../info'
@@ -49,6 +50,11 @@ export const projectConfigFile = ( projectPath:string ) => {
 export const project = ( projectPath:string ):Observable<Project> => {
   const rootModule = modules.resolve.fromPath(projectPath)
 
+  if ( !('kio' in (<any>rootModule)) )
+  {
+    return Observable.throw(`Please set kio folder configuration in "${projectPath}/package.json".`)
+  }
+
   return getBuildInfo(projectPath).flatMap ( lastBuild => {
 
     return modules.resolve.kioModules().toArray().map ( kioModules => {
@@ -58,7 +64,9 @@ export const project = ( projectPath:string ):Observable<Project> => {
           ...rootModule,
           children: kioModules.filter ( mod => mod.name !== rootModule.name )
         } ,
-        lastBuild
+        lastBuild,
+        folders: (<any>rootModule).kio,
+        components: []
       }
     } )
   } )

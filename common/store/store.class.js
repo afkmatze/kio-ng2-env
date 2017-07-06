@@ -57,15 +57,19 @@ class EnvStore {
         });
     }
     load() {
-        return this.ensureExistance()
-            .flatMapTo(this.env.read()
+        return this.env.read()
+            .catch(error => {
+            if (this.defaultData instanceof rxjs_1.Observable)
+                return this.defaultData;
+            return rxjs_1.Observable.of(this.defaultData);
+        })
             .flatMap(data => {
             this.data = data;
             if (!project_1.isProject(data) && this.defaultData) {
                 return this.mergeDefault();
             }
             return rxjs_1.Observable.of(this);
-        }));
+        });
     }
     save() {
         if (!this.data) {

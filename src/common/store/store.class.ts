@@ -80,17 +80,20 @@ export class EnvStore<T extends EnvData> {
   }
 
   load(){
-    return this.ensureExistance()
-      .flatMapTo ( this.env.read()
-          .flatMap ( data => {
-            this.data = data
-            if ( !isProject(data) && this.defaultData )
-            {
-              return this.mergeDefault()
-            }
-            return Observable.of(this)
-          } )
-      )
+    return this.env.read()
+      .catch ( error => {
+        if ( this.defaultData instanceof Observable )
+          return this.defaultData
+        return Observable.of(this.defaultData)
+      } )
+      .flatMap ( data => {
+        this.data = data
+        if ( !isProject(data) && this.defaultData )
+        {
+          return this.mergeDefault()
+        }
+        return Observable.of(this)
+      } )
   }
 
   save(){

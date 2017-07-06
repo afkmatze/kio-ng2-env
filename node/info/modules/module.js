@@ -12,7 +12,8 @@ exports.fromPath = (filepath) => {
         name: pckg.name,
         filepath: moduleDir,
         version: pckg.version,
-        repository: pckg.repository
+        repository: pckg.repository,
+        kio: pckg.kio
     };
 };
 //# sourceMappingURL=module.js.map

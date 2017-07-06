@@ -13,6 +13,14 @@ export interface BuildInfo {
     buildMachine: Machine;
     buildRepository: RepositoryInfo;
 }
+export interface KioFolders {
+    root: string;
+    components: {
+        structure: string;
+        navigation: string;
+        publication: string;
+    };
+}
 export interface Project extends ProjectInfo {
     rootModule: RootModuleInfo;
     lastBuild: BuildInfo;

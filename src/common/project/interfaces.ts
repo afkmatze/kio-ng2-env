@@ -5,6 +5,8 @@ import {
   Branch, CommitShort
 } from '../info'
 
+import { Nested } from './types'
+
 export interface ProjectInfo {
   name: string  
 }
@@ -20,6 +22,16 @@ export interface BuildInfo {
   buildMachine: Machine
   buildRepository: RepositoryInfo
 }
+
+export interface KioFolders {
+  root: string
+  components: {
+    structure: string
+    navigation: string
+    publication: string
+  }
+}
+
 
 export interface Project extends ProjectInfo 
 {
