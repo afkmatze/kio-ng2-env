@@ -7,9 +7,7 @@ import {
 } from '../../../common'
 
 const execGit = ( commandArgs:string, cwd:string ):Observable<string> => {
-  return exec (`git ${commandArgs}`).map ( data => {
-    return data.stdout
-  } )
+  return exec (`git ${commandArgs}`)
   .map ( (data:any) => data instanceof Buffer ? data.toString('utf8') : data )
 }
 
