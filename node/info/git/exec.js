@@ -3,9 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const rxshell_1 = require("rxshell");
 const common_1 = require("../../../common");
 const execGit = (commandArgs, cwd) => {
-    return rxshell_1.exec(`git ${commandArgs}`).map(data => {
-        return data.stdout;
-    })
+    return rxshell_1.exec(`git ${commandArgs}`)
         .map((data) => data instanceof Buffer ? data.toString('utf8') : data);
 };
 const parseBranch = (branchString) => {

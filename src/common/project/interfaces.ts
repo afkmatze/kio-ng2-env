@@ -1,4 +1,4 @@
-import { NamedComponent } from 'kio-ng2'
+import { NamedComponent } from 'kio-ng2-data'
 
 import { 
   Machine, ModuleInfo, RepositoryType, RootModuleInfo,

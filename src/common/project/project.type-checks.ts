@@ -10,7 +10,7 @@ import {
 } from './interfaces'
 
 //import { RootModuleInfo, ModuleInfo } from '../../common'
-import { NamedComponent, isNamedComponent } from 'kio-ng2'
+import { NamedComponent, isNamedComponent } from 'kio-ng2-data'
 
 
 export const isModuleInfo = ( other:any ):other is ModuleInfo => {

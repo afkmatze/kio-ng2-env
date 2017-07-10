@@ -1,4 +1,4 @@
-import { NamedComponent } from 'kio-ng2';
+import { NamedComponent } from 'kio-ng2-data';
 import { Machine, RootModuleInfo, Branch, CommitShort } from '../info';
 export interface ProjectInfo {
     name: string;
