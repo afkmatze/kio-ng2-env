@@ -48,6 +48,10 @@ exports.remotes = (cwd) => {
 };
 exports.branches = (cwd) => execGit('branch -v', cwd).map(parseBranch);
 const parseCommitShort = (commitString) => {
+    if ('string' !== typeof commitString) {
+        console.log(commitString);
+        throw Error(`Invalid argument of type ${typeof commitString}. Expected string but got ${commitString}`);
+    }
     const result = commitString.match(/^[\*|\|\ ]{0,}(\w+)\ (.+)/);
     if (result) {
         const [_ = undefined, hash = undefined, message = undefined] = result;
@@ -61,5 +65,5 @@ const parseCommitShort = (commitString) => {
         message: undefined
     };
 };
-exports.commits = (cwd, branchName = '--all') => execGit(`log --oneline ${branchName}`, cwd).map(parseCommitShort);
+exports.commits = (cwd, branchName = '--all') => execGit(`log --oneline ${branchName}`, cwd).filter(v => !!v).map(parseCommitShort);
 //# sourceMappingURL=exec.js.map
