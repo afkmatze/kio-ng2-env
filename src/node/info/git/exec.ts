@@ -1,21 +1,31 @@
 import { Observable } from 'rxjs'
-import { exec } from 'rxshell'
+import { exec, StreamData } from 'rxshell'
 import { 
   Commit, CommitShort, Branch, 
   RemoteType,
   RemoteInfo, Remote, RemoteAbstract
 } from '../../../common'
 
+function isStreamData <T extends string|Buffer> ( other:any ):other is StreamData<T> {
+  return ( 'object' === typeof other ) && ( other['stdout'] )
+}
+
 const execGit = ( commandArgs:string, cwd:string ):Observable<string> => {
   return exec (`git ${commandArgs}`)
   .map ( (data:any) => data instanceof Buffer ? data.toString('utf8') : data )
 }
 
-const parseBranch = ( branchString:string ):Branch => {
+const parseBranch = ( branchString:string|Buffer|StreamData<any> ):Branch => {
+  if ( isStreamData ( branchString ) ) {
+    return parseBranch(branchString['stdout'])
+  }
+  if ( branchString instanceof Buffer ) {
+    return parseBranch ( branchString.toString('utf8') )
+  }
   if ( 'string' !== typeof branchString )
   {
     console.log(branchString)
-    throw Error(`branch string must be a string value. got ${typeof branchString}`)
+    throw Error(`branch string must be a string value. got ${typeof branchString} - ${branchString.constructor}`)
   }
   const [ _, flag, name, commit, message] = branchString.match ( /(^\*)?\ *(\w+)\ *(\w+)\ (.+)/ )
     return {
@@ -32,7 +42,7 @@ const parseRemote = <T extends RemoteType>( remoteString:string ):RemoteInfo<T> 
       name, 
       url,
       type: RemoteType[typeName]
-    }
+    }  
 }
 
 export const remotes = ( cwd:string ):Observable<RemoteAbstract> => {
@@ -49,6 +59,10 @@ export const remotes = ( cwd:string ):Observable<RemoteAbstract> => {
 export const branches = ( cwd:string ):Observable<Branch> => execGit('branch -v', cwd).map ( parseBranch )
 
 const parseCommitShort = ( commitString:string ):CommitShort => {
+  if ( 'string' !== typeof commitString ) {
+    console.log(commitString)
+    throw Error(`Invalid argument of type ${typeof commitString}. Expected string but got ${commitString}`)
+  }
   const result = commitString.match(/^[\*|\|\ ]{0,}(\w+)\ (.+)/)
   if ( result )
   {
@@ -64,4 +78,4 @@ const parseCommitShort = ( commitString:string ):CommitShort => {
   }
 }
 
-export const commits = ( cwd:string, branchName:string='--all' ):Observable<CommitShort> => execGit(`log --oneline ${branchName}`,cwd).map ( parseCommitShort )
+export const commits = ( cwd:string, branchName:string='--all' ):Observable<CommitShort> => execGit(`log --oneline ${branchName}`,cwd).filter(v => !!v).map ( parseCommitShort )

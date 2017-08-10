@@ -2,14 +2,23 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const rxshell_1 = require("rxshell");
 const common_1 = require("../../../common");
+function isStreamData(other) {
+    return ('object' === typeof other) && (other['stdout']);
+}
 const execGit = (commandArgs, cwd) => {
     return rxshell_1.exec(`git ${commandArgs}`)
         .map((data) => data instanceof Buffer ? data.toString('utf8') : data);
 };
 const parseBranch = (branchString) => {
+    if (isStreamData(branchString)) {
+        return parseBranch(branchString['stdout']);
+    }
+    if (branchString instanceof Buffer) {
+        return parseBranch(branchString.toString('utf8'));
+    }
     if ('string' !== typeof branchString) {
         console.log(branchString);
-        throw Error(`branch string must be a string value. got ${typeof branchString}`);
+        throw Error(`branch string must be a string value. got ${typeof branchString} - ${branchString.constructor}`);
     }
     const [_, flag, name, commit, message] = branchString.match(/(^\*)?\ *(\w+)\ *(\w+)\ (.+)/);
     return {

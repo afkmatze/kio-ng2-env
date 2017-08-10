@@ -11,7 +11,7 @@ if ( !process.env.KIO_NG2_PROJECT )
 {
   throw Error(`Please set environment variable KIO_NG2_PROJECT to a valid digitorial path`)
 }
-const projectRoot = process.env.KIO_NG2_PROJECT 
+const projectRoot = path.resolve(process.env.KIO_NG2_PROJECT) 
 
 const projectEnvFile = path.join(projectRoot,'next-digitorial.json')
 const TEST_PROVIDER = createProvider(projectEnvFile)

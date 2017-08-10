@@ -69,6 +69,6 @@
     "kio-ng2-data": "github:afkm/kio-ng2-data",
     "kio-ng2-component-routing": "github:afkmatze/kio-ng2-component-routing#v0.0.8",
     "rxfs": "github:afkmatze/rxfs",
-    "rxshell": "github:afkmatze/rxshell"
+    "rxshell": "github:afkmatze/rxshell#v0.0.8"
   }
 }
