@@ -20,7 +20,7 @@ const parseBranch = (branchString) => {
         console.log(branchString);
         throw Error(`branch string must be a string value. got ${typeof branchString} - ${branchString.constructor}`);
     }
-    const [_, flag, name, commit, message] = branchString.match(/(^\*)?\ *(\w+)\ *(\w+)\ (.+)/);
+    const [_, flag, name, commit, message] = branchString.match(/(^\*)?\ *([\w|\S]+)\ *(\w+)\ (.+)/);
     return {
         current: flag === '*',
         name,
